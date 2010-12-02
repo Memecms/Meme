@@ -46,8 +46,8 @@ class Admin_IndexController extends Zend_Controller_Action
 		
 		
 		// Setting model
-		$SettingsModel = new Admin_Model_DbTable_SettingsTable();
-		$this->view->setting_sitetitle = $SettingsModel->get('sitetitle');
+		$this->view->SettingsModel = new Admin_Model_DbTable_SettingsTable();
+		$this->view->setting_sitetitle = $this->view->SettingsModel->get('sitetitle');
 
 
 
