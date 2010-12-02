@@ -19,7 +19,7 @@
  * @version		$Id: TryController.php 401 2010-11-18 20:25:30Z alex $
  */
 
-class ProvaController extends Zend_Controller_Action
+class TryController extends Zend_Controller_Action
 {
 
 
