@@ -48,30 +48,8 @@ class TryController extends Zend_Controller_Action
 
 	public function indexAction()
 		{
-		//http://davidwalsh.name/jquery-flot
-			//http://code.google.com/p/gapi-google-analytics-php-interface/wiki/GAPIDocumentation
-			
-			//
-			echo date('Y-m-d', strtotime('-10 month'));
-			
-			
-			
-			$gapi = new Admin_Model_gapi();
-
- $gapi->requestReportData(4319768,array('date'),array('visits', 'visitors'), '-date', '', date('Y-m-d', strtotime('-10 month')), date('Y-m-d'), 1, 600);
-// requestReportData($report_id, $dimensions, $metrics, $sort_metric=null, $filter=null, $start_date=null, $end_date=null, $start_index=1, $max_results=30)
- /*foreach($gapi->getResults() as $result)
-{
-  echo '<strong>'.$result.'</strong><br />';
-  echo 'Pageviews: ' . $result->getPageviews() . ' ';
-  echo 'Visits: ' . $result->getVisits() . '<br />';
-}
-
-echo '<p>Total pageviews: ' . $gapi->getPageviews() . ' total visits: ' . $gapi->getVisits() . '</p>';
- */
- 
-			  Zend_Debug::dump($gapi->getResults());
-
+		
+		
  		}
 
 
