@@ -1,0 +1,168 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'index'), 'default', true) ?>"><strong>GALLERY</strong></a></li>
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'album'), 'default', true) ?>"><strong>ALBUM</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'images'), 'default', true) ?>"><strong>IMAGES</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'uploadimages'), 'default', true) ?>"><strong>UPLOAD IMAGES</strong></a></li>
+  		</ul>
+
+
+	<h1>Add new Album</h1>
+<form id="form1" name="form1" method="post" action="/admin/gallery/albumnew">
+
+<div id="sinistra">
+
+	      
+    <input type="text" name="album_title" id="album_title" size="50" style="width: 590px" />
+
+<br />
+  <br />
+  <br />
+  <textarea name="album_content" id="album_content" style="width:600px; height: 500px;"></textarea>
+
+<?php echo $this->setupEditor( 'album_content' ); ?>
+
+
+<br /> <br />
+<a name="flickr" id="flickr"></a>
+
+<h3>Flickr</h3>
+User id flickr:  <input type="text" name="flickr_user_id" id="flickr_user_id" size="40" value="9745158@N03n" /> <a href="#flickr" id="flickr_button_search">Search</a>
+
+
+<script type="text/javascript">
+
+
+$("#flickr_button_search").click(function() {
+
+$("#flickr_album").html('Search ...');
+
+
+$.getJSON('http://api.flickr.com/services/rest/?format=json&method=flickr.photosets.getList&api_key=d320daa86b855b82cbb86f2bb60fa0c5'+'&user_id='+$("#flickr_user_id").val()+'&jsoncallback=?',
+	 function(data){
+  			console.log(data);
+  			
+  			
+  			//alert(data.photosets.photoset['length']);
+  	
+  			if (data.stat != "ok"){
+				$("#flickr_album").html(data.message);
+			}
+			else
+			{
+				
+				$("#flickr_album").empty();
+				
+				for (var i=0; i<data.photosets.photoset['length']; i++){
+					
+					
+					$("<img/>").attr("src", 'http://farm'+data.photosets.photoset[i].farm+'.static.flickr.com/'+data.photosets.photoset[i].server+'/'+data.photosets.photoset[i].primary+'_'+data.photosets.photoset[i].secret+'_s.jpg').appendTo("#flickr_album");
+
+				}
+
+
+			}
+  	
+  	/*
+  		$.each(data.items, function(i,item){
+            $("<img/>").attr("src", item.media.m).appendTo("#flickr_album");
+            if ( i == 3 ) return false;
+          });
+
+
+
+
+function jsonFlickrApi(rsp){
+
+	if (rsp.stat != "ok"){
+
+		// something broke!
+		return;
+	}
+
+	for (var i=0; i<rsp.blogs.blog.length; i++){
+
+		var blog = rsp.blogs.blog[i];
+
+		var div = document.createElement('div');
+		var txt = document.createTextNode(blog.name);
+
+		div.appendChild(txt);
+		document.body.appendChild(div);
+	}
+}
+
+
+
+  	*/
+  	
+  			
+      });
+    
+    
+
+      
+});
+
+
+
+
+</script>
+
+<br /><br />
+<br />
+
+
+	<div id="flickr_album">
+
+
+	</div>
+
+</div>
+
+<div id="destra">
+  <input type="submit" name="button" id="button" value="Save" />
+  <br />
+  
+  
+  
+
+  <h3>Date</h3>
+  <?= $this->datePicker("datepicker",date("Y-m-d"),array('dateFormat' => 'yy-mm-dd')); ?><br />
+  <input type="text" id="hh" name="hh" value="<?= date("H") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off"> : <input type="text" id="mn" name="mn" value="<?= date("i") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off">
+
+<br>
+<h3>User</h3>
+
+<select name="album_user" size="1" id="post_user">
+	<option value="1">admin</option>
+</select>
+<br>
+
+<h3>Gallery</h3>
+
+	<?php if(count($this->gallery)): ?>
+		<?php foreach($this->gallery as $gallery): ?>  
+			<label>
+  				<input name="gallery<?= $gallery['gallery_id']?>" type="checkbox" id="gallery" value="1" />
+  				<?= $gallery['gallery_title']?>
+			</label>
+			<br>
+		<?php endforeach;?>  
+	<?php endif;?>  
+
+
+
+<br>
+<h3>Description</h3>
+<textarea name="album_description" rows="7" id="album_description" style="width: 255px"></textarea>
+
+
+<h3>Keywords</h3>
+<textarea name="album_keywords" rows="6" id="album_keywords" style="width: 255px"></textarea>
+
+
+
+</div>
+</form>
+
+<div class="clear"></div>

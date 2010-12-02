@@ -1,0 +1,92 @@
+<ul id="menuSecondary" class="clearfix">
+	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'index'), 'default', true) ?>"><strong>GALLERY</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'album'), 'default', true) ?>"><strong>ALBUM</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'images'), 'default', true) ?>"><strong>IMAGES</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'uploadimages'), 'default', true) ?>"><strong>UPLOAD IMAGES</strong></a></li>
+
+
+
+
+		<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'imagesedit'), 'default', false) ?>"><strong>EDIT: <?= $this->image->img_title ?></strong></a></li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+
+	<h1>Edit Image</h1>
+<form id="form1" name="form1" method="post" action="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'imagesedit'), 'default', false) ?>">
+
+<input name="img_id" type="hidden" id="img_id" value="<?= $this->image->img_id ?>" />
+
+<div id="sinistra">
+
+	  <img src="/meme-media/gallery/thumb/<?= $this->image->img_file ?>" />
+	  <br />	  <br />
+
+	      
+    <input type="text" name="img_title" id="img_title" size="50" style="width: 590px" value="<?= $this->image->img_title ?>" />
+
+  <br />
+  <br />
+  <textarea name="img_content" id="img_content" style="width:600px; height: 100px;"><?= $this->image->img_content ?></textarea>
+<br />
+
+<h3>Image Url Link:</h3>
+    <input type="text" name="img_link" id="img_link" size="50" style="width: 590px" value="<?= $this->image->img_link ?>" />
+
+
+</div>
+
+<div id="destra">
+  <input type="submit" name="button" id="button" value="Save" />
+  <br />
+  <br />
+
+  
+
+<h3>Album</h3>
+
+	<?php if(count($this->AlbumList)): ?>
+		<?php foreach($this->AlbumList as $album): ?>
+		
+			<label>
+  				<input name="album<?= $album['album_id']?>" type="checkbox" id="album" value="1"
+  				<? foreach($this->imageAdd as $imgadd):
+						if($imgadd['album_id'] == $album['album_id'])
+						{echo 'checked="checked"';}
+					endforeach;?> />
+  				<?= $album['album_title']?>
+			</label>
+			<br />
+		
+		<?php endforeach;?>
+	<?php endif;?>  
+
+
+
+
+
+
+
+
+<h3>Description</h3>
+<textarea name="img_description" rows="7" id="img_description" style="width: 255px"><?= $this->image->img_description ?></textarea>
+
+
+<h3>Keywords</h3>
+<textarea name="img_keywords" rows="6" id="img_keywords" style="width: 255px"><?= $this->image->img_keywords ?></textarea>
+
+<br /><br />
+
+
+</div>
+</form>
+
+<div class="clear"></div>

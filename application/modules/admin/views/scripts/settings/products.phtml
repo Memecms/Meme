@@ -1,0 +1,61 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'settings','action'=>'index'), 'default', true) ?>"><strong>GENERAL</strong></a></li>
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'settings','action'=>'products'), 'default', true) ?>"><strong>PRODUCT</strong></a></li>
+  		</ul>
+			
+<h1>Manage Attributes</h1>
+Add New Attribute
+Values Required
+
+	<table id="gradient-style" summary="Meeting Results">
+    		
+    			<thead>
+    				<tr>
+        				<th scope="col">ID</th>
+        				
+        				<th scope="col">Name</th>
+        				
+        				<th scope="col">Type</th>
+        				<th scope="col"></th>
+        				
+           				
+      				   
+      				    
+      				    <th scope="col"></th>
+      				    <th scope="col"></th>
+        			</tr>
+    			</thead>
+    			
+    			
+    			<tfoot>
+    				<tr>
+        				<td colspan="6"><?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></td>
+        			</tr>
+    			</tfoot>
+    			
+    			
+    			<tbody>
+    			
+        			
+        			<?php if (count($this->paginator)): ?>
+						<?php foreach ($this->paginator as $page ): ?>
+					<tr>
+        				<td><?= $this->escape($page['products_attribute_id']); ?></td>
+        				<td><a href="/admin/pages/edit/id/<?= $this->escape($page['products_attribute_id']); ?>"><?= $this->escape($page['products_attribute_name']); ?></a></td>
+        				<td><?= $this->escape($page['products_attribute_type']); ?></td>
+        				<td></td>
+           				
+            		
+            			<td><a href="/admin/pages/edit/id/<?= $this->escape($page['products_attribute_id']); ?>">EDIT</a></td>
+            			<td><a href="/admin/pages/delete/id/<?= $this->escape($page['products_attribute_id']); ?>">DELETE</a></td>
+        			</tr>
+        			
+        				<?php endforeach; ?>
+					<?php endif; ?>
+
+        		</tbody>
+
+			</table>
+<br />

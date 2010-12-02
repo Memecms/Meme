@@ -1,0 +1,44 @@
+	<ul id="menuSecondary" class="clearfix">
+		<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+		<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'new'), 'default', true) ?>"><strong>WRITE</strong></a></li>
+		<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'categories'), 'default', true) ?>"><strong>CATEGORIES</strong></a></li>
+ 		  	
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'categorynew'), 'default', true) ?>"><strong>CATEGORY NEW</strong></a></li>
+  		</ul>
+
+	<h1>Add new category</h1>
+<form id="form1" name="form1" enctype="multipart/form-data" method="post" action="">
+
+<div id="sinistra">
+
+	Name Category:
+    <input type="text" name="category_name" id="category_name" size="50" />
+	<br />
+	<br />
+	Sub Category:
+	<select name="category_type" size="1" id="category_type">
+	<option value="0" selected="selected">Master</option>
+	<?php foreach($this->categorytype as $categorytype): ?> 
+		<? if($categorytype['category_type'] == '0') { ?>
+  		<option value="<?= $categorytype['category_id'] ?>"><?= $categorytype['category_name'] ?></option>
+  		<? } ?>
+  	<?php endforeach;?>
+	</select>
+	
+  
+  	<br />
+	<br />
+  <input type="submit" name="button" id="button" value="Save" />
+  <?= $this->button('#button'); ?>
+
+
+</div>
+
+<div id="destra">
+
+
+
+</div>
+</form>
+
+<div class="clear"></div>

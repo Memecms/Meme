@@ -1,0 +1,75 @@
+<?= $this->doctype() ?> <!-- This Line will output the doctype we set inside the bootstrap file -->
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>  
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
+		<?= $this->headTitle() ?>
+		<?= $this->headMeta() ?>
+		
+  		<?= $this->headLink()->appendStylesheet('/meme-content/css/style_meme.css'); ?>
+  		
+		<?= $this->jQuery()->setVersion('1.4.4')
+							->setUiVersion('1.8.6')
+							->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/blitzer/jquery-ui.css'); ?>
+							
+		<?= $this->headScript(); ?>		
+
+
+</head>
+
+<body>	
+
+	<div id="header">
+			<dir id="headerContent">
+			<img src="/meme-content/img/meme.png" align="left" style="margin-top: 10px" width="50px" />
+			<a href="/admin" id="logo" title="Homepage"><?= $this->setting_sitetitle ?></a>
+			
+			<a href="/admin/login/logout" id="logout" title="logout">Lookup</a>
+			<div id="userinfo">
+			<?= 
+				$this->identity['user_username'];
+			?>
+			</div>
+			
+	
+	 		<ul id="menuPrimary">
+ 				<li<? if($this->escape($this->controllerName) == 'index'){echo ' class="first selected"';}else{echo ' class="first"';} ?>><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'index','action'=>'index'), 'default', true) ?>" rel="home"><strong>Home</strong></a></li>
+ 				<li<? if($this->escape($this->controllerName) == 'posts')echo ' class="selected"' ?>><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'index'), 'default', true) ?>"><strong>Posts</strong></a></li>
+				<li<? if($this->escape($this->controllerName) == 'pages')echo ' class="selected"' ?>><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'index'), 'default', true) ?>"><strong>Pages</strong></a></li>
+ 				<li<? if($this->escape($this->controllerName) == 'media')echo ' class="selected"' ?>><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'media','action'=>'index'), 'default', true) ?>"><strong>Media</strong></a></li>
+ 				<!--<li<? if($this->escape($this->controllerName) == 'users')echo ' class="selected"' ?>><a href=""><strong>Users</strong></a></li>-->
+ 				
+ 				<li<? if($this->escape($this->controllerName) == 'products')echo ' class="selected"' ?>><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'index'), 'default', true) ?>"><strong>Products</strong></a></li>
+ 				
+ 				<li<? if($this->escape($this->controllerName) == 'gallery')echo ' class="selected"' ?>><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'index'), 'default', true) ?>"><strong>Gallery</strong></a></li>
+ 				<li<? if($this->escape($this->controllerName) == 'settings'){echo ' class="last selected"';}else{echo ' class="last"';} ?>><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'settings','action'=>'index'), 'default', true) ?>"><strong>Settings</strong></a></li>
+ 			</ul>
+ 			
+ 			
+	<div class="clear"></div>
+		</dir>
+	</div>
+	
+<div id="container">
+<div id="content">
+
+
+<?php echo $this->layout()->content ?>
+
+
+</div>
+
+	<div id="footerContainer">
+ 		<div id="footer" class="clearfix">
+ <br />
+<p>&copy; Studio Pigliacelli | Meme Cms 0.1.3dev | ZF: <?= Zend_Version::VERSION ?> </p>
+
+
+
+    	</div>
+	</div>
+
+</div>
+
+</body>
+</html>

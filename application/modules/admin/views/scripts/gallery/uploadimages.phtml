@@ -1,0 +1,116 @@
+<ul id="menuSecondary" class="clearfix">
+	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'index'), 'default', true) ?>"><strong>GALLERY</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'album'), 'default', true) ?>"><strong>ALBUM</strong></a></li>
+ 	 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'images'), 'default', true) ?>"><strong>IMAGES</strong></a></li>
+ 	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'uploadimages'), 'default', true) ?>"><strong>UPLOAD IMAGES</strong></a></li>
+</ul>
+
+
+	<h1>Add new Images</h1>
+
+<? 		if (!$this->request->isPost()) {?>
+
+
+<form method="post" action="">
+
+</form>
+		<? }else{ ?>
+		
+		
+<form method="post" action="">
+	
+	
+	
+
+<hr>
+		<?
+		for ($a=0; $a <= $this->images['uploader_count']-1; $a++){
+		?>
+<table  border="0">
+  <tr>
+    <td align="left" valign="middle"></td>
+    <td align="left" valign="middle"><h3><?= $this->images['uploader_'.$a.'_name'] ?></h3></td>
+  </tr>
+  
+  <tr>
+    <td align="left" valign="middle">Name Photo:</td>
+    <td align="left" valign="middle"><input type="text" name="img_title<?= $a ?>" id="img_title<?= $a ?>" size="10" style="width: 590px" /></td>
+  </tr>
+
+  <tr>
+    <td align="left" valign="top">Description:</td>
+    <td align="left" valign="top"><textarea name="img_content<?= $a ?>" id="img_content<?= $a ?>" style="width:595px; height: 90px;"></textarea></td>
+  </tr>
+
+  <tr>
+    <td align="left" valign="middle">Url Link:</td>
+    <td align="left" valign="middle"><input type="text" name="img_link<?= $a ?>" id="img_link<?= $a ?>" size="10" style="width: 590px" /></td>
+  </tr>
+  
+  <tr>
+    <td align="left" valign="middle"></td>
+    <td align="left" valign="middle">
+    	<input name="img_file<?= $a ?>" type="hidden" id="img_file<?= $a ?>" value="<?= $this->images['uploader_'.$a.'_tmpname'] ?>" />
+
+	</td>
+  </tr>
+
+
+
+
+	<?php if(count($this->GalleryList)): ?>
+		<?php foreach($this->GalleryList as $gallery): ?> 
+			<tr>
+				<td align="left" valign="top"><?= $gallery['gallery_title']?>:</td>
+				<td align="left" valign="top">
+				
+					<?php foreach($this->AddAlbum as $AddAlbum): ?>
+						
+						
+							<? if($AddAlbum['gallery_id'] == $gallery['gallery_id']) 
+								{
+									foreach($this->AlbumList as $AlbumList): 
+									
+										if ($AlbumList['album_id'] == $AddAlbum['album_id'])
+										{
+										?>
+											<label>
+  												<input name="album<?= $AlbumList['album_id'] ?>_id<?= $a ?>" type="checkbox" id="album<?= $AlbumList['album_id'] ?>_id<?= $a ?>" value="1" />
+  												<?= $AlbumList['album_title'] ?>
+											</label>
+										<?
+										}
+									
+									endforeach;
+								}
+							?>
+						
+						
+					<?php endforeach;?>  
+
+				</td>
+			</tr>
+		<?php endforeach;?>  
+	<?php endif;?>  
+
+
+
+
+
+</table>
+
+
+<hr />
+		
+	<? }?>	
+	
+	<input name="count" type="hidden" id="count" value="<?= $this->images['uploader_count']?>" />
+ <? if ($this->images['uploader_count'] != 0) {?>
+  <input type="submit" name="button" id="button" value="Save" />
+<? } ?>
+</form>	
+	<?	} ?>	
+
+
+
+<div class="clear"></div>

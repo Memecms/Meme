@@ -1,0 +1,149 @@
+	<ul id="menuSecondary" class="clearfix">
+		<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+		<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'new'), 'default', true) ?>"><strong>WRITE</strong></a></li>
+		<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'categories'), 'default', true) ?>"><strong>CATEGORIES</strong></a></li>
+		
+		
+		<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'edit'), 'default', false) ?>"><strong>EDIT: <?= $this->post['post_title'] ?></strong></a></li>
+	</ul>
+
+
+
+
+	<h1>Edit Article</h1>
+<form id="form1" name="form1" method="post" action="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'edit'), 'default', false) ?>">
+
+<input name="post_id" type="hidden" id="post_id" value="<?= $this->post['post_id'] ?>" />
+<input name="post_url_old" type="hidden" id="post_url_old" value="<?= $this->post['post_url'] ?>" />
+
+<div id="sinistra">
+
+
+
+    <input type="text" name="post_title" id="post_title" size="50" style="width: 590px" value="<?= $this->post['post_title'] ?>" />
+
+<br />
+  <br />
+  <br />
+  <textarea name="post_content" id="post_content" style="width:600px; height: 500px;"><?= $this->post['post_content'] ?></textarea>
+
+<?= $this->setupEditor( 'post_content' ); ?>
+
+
+</div>
+
+<div id="destra">
+
+<?= $this->accordion('.accordionClose', true); ?>
+<?= $this->accordion('.accordion'); ?>
+
+  <input type="submit" name="button" id="button" value="Save" />
+    <?= $this->button('#button'); ?>
+
+<div class="accordion">
+  <h3><a href="#">Status</a></h3>
+  <div>
+
+  
+<label>
+  <input type="checkbox" name="post_home" id="post_home" value="1" <? if($this->post['post_home'] == 1){ echo 'checked="checked"';} ?> />View on home
+</label>
+  
+  
+  <select name="post_status" size="1" id="post_status">
+	<option value="0" <? if($this->post['post_status'] == 0){ echo 'selected="selected"';} ?> >Published</option>
+	<option value="1" <? if($this->post['post_status'] == 1){ echo 'selected="selected"';} ?> >Pending Review</option>
+	<option value="2" <? if($this->post['post_status'] == 2){ echo 'selected="selected"';} ?> >Draft</option>
+</select>
+
+  
+  </div></div>
+	
+	
+<div class="accordionClose">
+  <h3><a href="#">Date</a></h3>
+  <div>
+  <?= $this->datePicker("datepicker",date("Y-m-d"),array('dateFormat' => 'yy-mm-dd')); ?><br />
+  <input type="text" id="hh" name="hh" value="<?= date("H") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off"> : <input type="text" id="mn" name="mn" value="<?= date("i") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off">
+
+
+</div></div>
+
+<input name="post_user" type="hidden" id="post_user" value="<?= $this->post['post_user']['user_id'] ?>" />
+<!--
+<div class="accordionClose">
+  <h3><a href="#">User</a></h3>
+  <div>
+
+
+<select name="post_user" size="1" id="post_user">
+	<option value="1">admin</option>
+</select>
+
+</div></div>
+
+-->
+<div class="accordion">
+  <h3><a href="#">Category</a></h3>
+  <div>
+
+
+	<?php if(count($this->category)): ?>
+		<?php foreach($this->category as $category): ?>  
+			<? if($category['category_type'] == 0){ ?>
+			<label>
+  				<input name="category<?= $category['category_id']?>" type="checkbox" id="category" value="1" 	<?php foreach($this->categoryadd as $categoryadd):
+						if($categoryadd['category_id'] == $category['category_id'])
+						{echo 'checked="checked"';}
+						else
+						{} 
+						endforeach;?> />
+  				<?= $category['category_name']?>
+			</label>
+			<br />
+			
+				<?php foreach($this->category as $subcategory): 
+					if($subcategory['category_type'] == $category['category_id']){?>
+						<label style="margin-left: 10px;">
+  							<input name="category<?= $subcategory['category_id']?>" type="checkbox" id="category<?= $subcategory['category_id']?>" value="1" 	<?php foreach($this->categoryadd as $categoryadd):
+						if($categoryadd['category_id'] == $subcategory['category_id'])
+						{echo 'checked="checked"';}
+						else
+						{} 
+						endforeach;?> />
+  							<?= $subcategory['category_name']?>
+						</label>
+						<br />
+					<? } ?>
+
+				<?php endforeach;?>
+			<? } ?>
+		<?php endforeach;?>  
+	<?php endif;?>  
+
+</div></div>
+
+<div class="accordion">
+  <h3><a href="#">Meta Tag</a></h3>
+  <div>
+
+
+<h4>Description</h4>
+<textarea name="post_description" rows="7" id="post_description" style="width: 200px"><?= $this->post['post_description'] ?></textarea>
+
+
+<h4>Keywords</h4>
+<textarea name="post_keywords" rows="6" id="post_keywords" style="width: 200px"><?= $this->post['post_keywords'] ?></textarea>
+
+
+
+    </div>
+</div>
+
+<br /><br />
+
+
+</div>
+</form>
+
+<div class="clear"></div>

@@ -1,0 +1,24 @@
+<?= $this->htmlFlash('/meme-content/gallery/slide.swf', array('width'=>'940', 'height'=>'300'), array('flashvars'=>'xmlFilePath=/xml/gallery/4/images.xml&paramXMLPath=/meme-content/gallery/param.xml', 'wmode'=>'transparent', 'allowFullScreen' => 'true')); ?>
+
+<br />
+<br />
+<div id="left">
+	<h2><?= $this->Meme_Page_get()->page_title ?></h2>
+	<?= $this->Meme_Page_get()->page_content ?>
+	<hr />
+
+	<?= $this->Meme_Posts_Lists('home'); 
+	?>
+
+</div>
+
+<div id="right">
+	<div id="category">
+	<?= $this->Meme_Category_get('post'); ?>
+	</div>
+	<div id="recent_post">
+	<?= $this->Meme_Posts_Recent(); ?>
+	</div>
+</div>
+
+<div class="clear"></div>

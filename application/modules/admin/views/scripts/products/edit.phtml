@@ -1,0 +1,199 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'category'), 'default', true) ?>"><strong>CATEGORY</strong></a></li>
+ 		  	
+ 		  	
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'edit'), 'default', false) ?>"><strong>EDIT: <?= $this->product->product_name ?></strong></a></li>
+
+  		</ul>
+
+	<h1>Edit product</h1>
+<form id="form1" name="form1" enctype="multipart/form-data" method="post" action="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'edit'), 'default', false) ?>">
+<input name="product_id" type="hidden" id="product_id" value="<?= $this->product->product_id ?>" />
+<input name="product_url_old" type="hidden" id="product_url_old" value="<?= $this->product['product_url'] ?>" />
+
+<div id="sinistra">
+
+	      
+    <input type="text" name="product_name" id="product_name" size="50" style="width: 590px" value="<?= $this->product->product_name ?>" />
+
+<br />
+  <br />
+  
+  
+
+  <input type="file" name="product_thumb" id="product_thumb" style="width: 590px"/>
+  <?php 
+  if(is_file('meme-media/products/'.$this->product->product_id.'/thumb.jpg')){
+  
+  echo '<img src="/meme-media/products/'.$this->product->product_id.'/thumb.jpg" />';
+  
+  echo '<br /> <label>
+  <input name="delete_thumb" type="checkbox" id="delete_thumb" value="1" />
+  delete images</label>
+';
+  
+  }
+  ?>
+
+   <br />
+<textarea name="product_content" id="product_content" rows="7" style="width: 600px"><?= $this->product->product_content ?></textarea>
+<?php echo $this->setupEditor( 'product_content' ); ?>
+
+<?php foreach($this->field as $field): ?>
+
+
+	<?php foreach($this->value as $value): 
+	
+		if($field['products_attribute_id']==$value['product_attribute_id']){
+		
+			$valuefield = $value['product_value'];
+		
+		}
+		
+	 endforeach;?>
+
+	
+	<?php
+		$id_attribute = $this->escape($field['products_attribute_id']);
+		$type = $this->escape($field['products_attribute_type']);
+		$name = $this->escape($field['products_attribute_name']);
+			echo '<br /><br />';
+			
+		if($type == 'text_field'){
+			echo $name;
+			echo '<br />';
+			echo '<input type="text" name="field'. $id_attribute . '" id="field'. $id_attribute . '" style="width: 300px" value="'.$valuefield.'" />';
+		}
+		elseif($type == 'text_area'){
+			echo $name;
+			echo '<br />';
+			echo '<textarea name="field'. $id_attribute . '" id="field'. $id_attribute . '" style="width: 600px">'.$valuefield.'</textarea>';
+			echo $this->setupEditor( 'field'. $id_attribute );
+		}
+		elseif($type == 'media_image'){
+		 
+ 			echo $name;
+
+		
+			echo '<input type="file" name="field'. $id_attribute . '" id="field'. $id_attribute . '" /> <br />';
+			  if(is_file('meme-media/products/'.$this->product->product_id.'/thumb/'.$id_attribute.'.jpg')){
+  
+ 			 	echo '<img src="/meme-media/products/'.$this->product->product_id.'/thumb/'.$id_attribute.'.jpg" />';
+  
+  				echo '<br /> <label>
+  						<input name="delete_img'.$id_attribute.'" type="checkbox" id="delete_img'.$id_attribute.'" value="1" />
+					  delete images</label>
+					';
+
+ 				 }
+		}
+
+	?>
+
+
+
+<?php endforeach;?>
+
+
+
+</div>
+
+<div id="destra">
+
+<?= $this->accordion('.accordionClose', true); ?>
+<?= $this->accordion('.accordion'); ?>
+
+
+  <input type="submit" name="button" id="button" value="Save" />
+      <?= $this->button('#button'); ?>
+
+  <br /><br />
+  
+
+<div class="accordion">
+  <h3><a href="#">Category</a></h3>
+  <div>
+
+	<?php if(count($this->category)): ?>
+		<?php foreach($this->category as $category): ?>  
+			<? if($category['category_type'] == 0){ ?>
+			<label>
+  				<input name="category<?= $category['category_id']?>" type="checkbox" id="category" value="1" 	<?php foreach($this->categoryadd as $categoryadd):
+						if($categoryadd['category_id'] == $category['category_id'])
+						{echo 'checked="checked"';}
+						else
+						{} 
+						endforeach;?> />
+  				<?= $category['category_name']?>
+			</label>
+			<br />
+			
+				<?php foreach($this->category as $subcategory): 
+					if($subcategory['category_type'] == $category['category_id']){?>
+						<label style="margin-left: 10px;">
+  							<input name="category<?= $subcategory['category_id']?>" type="checkbox" id="category<?= $subcategory['category_id']?>" value="1" 	<?php foreach($this->categoryadd as $categoryadd):
+						if($categoryadd['category_id'] == $subcategory['category_id'])
+						{echo 'checked="checked"';}
+						else
+						{} 
+						endforeach;?> />
+  							<?= $subcategory['category_name']?>
+						</label>
+						<br />
+					<? } ?>
+
+				<?php endforeach;?>
+			<? } ?>
+		<?php endforeach;?>  
+	<?php endif;?>  
+
+</div></div>
+
+
+<div class="accordionClose">
+  <h3><a href="#">Gallery</a></h3>
+  <div>
+
+
+<select name="gallery" size="1" id="gallery">
+  <option value="none">Select</option>
+  
+	<?php if(count($this->gallery)): ?>
+		<?php foreach($this->gallery as $gallery): ?>  
+		
+  				<option value="<?= $gallery['gallery_id']?>" 
+  				<? if (isset($this->galleryAdd->gallery_id) == $gallery['gallery_id'])
+  					{
+  						echo 'selected="selected"';
+  					}
+  				?>
+  				><?= $gallery['gallery_title']?></option>
+			
+		<?php endforeach;?>  
+	<?php endif;?>  
+
+
+</select>
+
+</div></div>
+
+<div class="accordion">
+  <h3><a href="#">Meta Tag</a></h3>
+  <div>
+
+
+<h4>Description</h4>
+<textarea name="product_description" rows="7" id="product_description" style="width: 200px"><?= $this->product->product_description ?></textarea>
+
+
+<h4>Keywords</h4>
+<textarea name="product_keywords" rows="6" id="product_keywords" style="width: 200px"><?= $this->product->product_keywords ?></textarea>
+
+</div></div>
+
+</div>
+</form>
+
+<div class="clear"></div>

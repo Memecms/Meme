@@ -1,0 +1,21 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'index'), 'default', true) ?>"><strong>GALLERY</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'album'), 'default', true) ?>"><strong>ALBUM</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'images'), 'default', true) ?>"><strong>IMAGES</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'uploadimages'), 'default', true) ?>"><strong>UPLOAD IMAGES</strong></a></li>
+ 		  	
+ 		  	 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'iamgesdelete'), 'default', false) ?>"><strong>DELETE: <?= $this->image->img_title ?></strong></a></li>
+
+ 		  	
+  		</ul>
+
+	
+			
+	<h1>Delete Image</h1>
+	
+	<p>Vuoi eliminare l' immagine <strong><?= $this->image->img_title ?></strong> ? </p>
+	<a href="/admin/gallery/imagesdelete/id/<?= $this->image->img_id ?>/confirm/yes">YES</a> or <a href="/admin/gallery/images/">NO</a>
+	
+	
+	
+        <br />

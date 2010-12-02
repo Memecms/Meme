@@ -1,0 +1,17 @@
+<div id="left">
+
+	<h4>Category <?= $this->categoryname ?></h4>
+
+	<?= $this->Products_Lists('', $this->ItemForPage, $this->ProductsList); ?>
+	
+	<?= $this->paginationControl($this->ProductsList,
+                                    'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?>
+</div>
+
+<div id="right">
+	<?= $this->Products_Category(); ?>
+	<?= $this->Products_Recent(); ?>
+</div>
+
+<div class="clear"></div>

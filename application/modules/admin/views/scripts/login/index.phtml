@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>MEME | Login</title>
+
+<?= $this->headMeta() ?>
+
+  		<?= $this->headLink()->appendStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/blitzer/jquery-ui.css'); ?>
+  		
+  		<?= $this->headScript()	->prependFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js')
+  								->prependFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js');
+        ?>
+
+
+
+<style type="text/css">
+<!--
+body {
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	font-size: 12px;
+	background-image: url(/meme-content/img/login-background.jpg);
+	background-color: #333;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+
+ul {
+	list-style: none;
+	margin:0px;
+	padding: 0px;
+}
+
+li {
+		 padding: 0px;
+		margin: 0px;
+		font-size: 12px;
+		color: red;
+	}
+
+-->
+</style>
+</head>
+
+<body>
+
+<div id="dialog" title="Admin Area">
+
+
+<?php echo $this->error; ?>
+
+	<?php echo $this->loginForm; ?>	
+
+</div>
+
+
+<script type="text/javascript">
+	$(function() {
+		$("#dialog").dialog({ draggable: false }, { resizable: false }, { closeOnEscape: false }, { position: ['center',100] });
+		
+		$( 'a.ui-dialog-titlebar-close' ).remove();
+	});
+	</script>
+
+
+</body>
+</html>

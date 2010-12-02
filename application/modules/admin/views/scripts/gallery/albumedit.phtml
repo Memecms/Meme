@@ -1,0 +1,86 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'index'), 'default', true) ?>"><strong>GALLERY</strong></a></li>
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'album'), 'default', true) ?>"><strong>ALBUM</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'images'), 'default', true) ?>"><strong>IMAGES</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'uploadimages'), 'default', true) ?>"><strong>UPLOAD IMAGES</strong></a></li>
+  		</ul>
+
+
+	<h1>Edit Album</h1>
+<form id="form1" name="form1" method="post" action="">
+<input name="album_id" type="hidden" id="album_id" value="<?= $this->album->album_id ?>" />
+
+
+
+<div id="sinistra">
+
+	      
+    <input type="text" name="album_title" id="album_title" size="50" style="width: 590px" value="<?= $this->album->album_title ?>" />
+
+<br />
+  <br />
+  <br />
+  <textarea name="album_content" id="album_content" style="width:600px; height: 500px;"><?= $this->album->album_content ?></textarea>
+
+<?php echo $this->setupEditor( 'album_content' ); ?>
+
+
+</div>
+
+<div id="destra">
+  <input type="submit" name="button" id="button" value="Save" />
+
+  <br />
+  
+
+  <h3>Date</h3>
+  <?= $this->datePicker("datepicker",date("Y-m-d"),array('dateFormat' => 'yy-mm-dd')); ?><br />
+   <input type="text" id="hh" name="hh" value="<?= date("H") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off"> : <input type="text" id="mn" name="mn" value="<?= date("i") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off">
+
+<br>
+<h3>User</h3>
+
+<select name="album_user" size="1" id="post_user">
+	<option value="1">admin</option>
+</select>
+<br>
+
+<h3>Gallery</h3>
+
+	<?php if(count($this->gallery)): ?>
+		<?php foreach($this->gallery as $gallery): ?>  
+			<label>
+  				<input name="gallery<?= $gallery['gallery_id']?>" type="checkbox" id="gallery<?= $gallery['gallery_id']?>" value="1" 	
+  				<?php foreach($this->albumadd as $albumadd):
+						if($albumadd['gallery_id'] == $gallery['gallery_id'])
+						{echo 'checked="checked"';}
+						else
+						{} 
+						endforeach;?> />
+  				<?= $gallery['gallery_title']?>
+			</label>
+			<br />
+				
+		<?php endforeach;?>  
+	<?php endif;?>  
+
+
+
+
+
+
+
+<br>
+<h3>Description</h3>
+<textarea name="album_description" rows="7" id="album_description" style="width: 255px"><?= $this->album->album_description ?></textarea>
+
+
+<h3>Keywords</h3>
+<textarea name="album_keywords" rows="6" id="album_keywords" style="width: 255px"><?= $this->album->album_keywords ?></textarea>
+
+
+
+</div>
+</form>
+
+<div class="clear"></div>

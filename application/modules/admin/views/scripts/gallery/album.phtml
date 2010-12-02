@@ -1,0 +1,66 @@
+<ul id="menuSecondary" class="clearfix">
+	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'index'), 'default', true) ?>"><strong>GALLERY</strong></a></li>
+ 	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'album'), 'default', true) ?>"><strong>ALBUM</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'images'), 'default', true) ?>"><strong>IMAGES</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'uploadimages'), 'default', true) ?>"><strong>UPLOAD IMAGES</strong></a></li>
+</ul>
+
+			<a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'albumnew'), 'default', true) ?>" class="button">New Album</a>
+			<?= $this->button('.button'); ?>
+			  <br /><br />
+
+	     	<table id="gradient-style" summary="Meeting Results">
+    		
+    			<thead>
+    				<tr>
+        				<th scope="col">ID</th>
+        				
+        				<th scope="col">Title</th>
+        				
+        				<th scope="col">User</th>
+        				<th scope="col">Date</th>
+        				
+           				
+      				   
+      				    
+      				    <th scope="col"></th>
+      				    <th scope="col"></th>
+        			</tr>
+    			</thead>
+    			
+    			
+    			<tfoot>
+    				<tr>
+        				<td colspan="6"><?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></td>
+        			</tr>
+    			</tfoot>
+    			
+    			
+    			<tbody>
+    			
+        			<?php if (count($this->paginator)): ?>
+						<?php foreach ($this->paginator as $album ): ?>
+					<tr>
+        				<td><?= $this->escape($album['album_id']); ?></td>
+        				<td><a href="/admin/gallery/albumedit/id/<?= $this->escape($album['album_id']); ?>"><?= $this->escape($album['album_title']); ?></a></td>
+        				<td></td>
+        				<td><?= new Zend_Date($album['album_date'], Zend_Date::TIMESTAMP); ?></td>
+
+
+            			<td><a href="/admin/gallery/albumedit/id/<?= $this->escape($album['album_id']); ?>">EDIT</a></td>
+            			<td><a href="/admin/gallery/albumdelete/id/<?= $this->escape($album['album_id']); ?>">DELETE</a></td>
+        			</tr>
+        			
+        				<?php endforeach; ?>
+					<?php endif; ?>
+
+        		</tbody>
+
+			</table>
+			
+			   
+        <br />
+        
+        

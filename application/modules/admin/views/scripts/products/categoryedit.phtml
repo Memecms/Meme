@@ -1,0 +1,53 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'category'), 'default', true) ?>"><strong>CATEGORY</strong></a></li>
+ 		  	
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'categorynew'), 'default', true) ?>"><strong>CATEGORY EDIT: <?= $this->category->category_name ?></strong></a></li>
+  		</ul>
+
+	<h1>Edit category</h1>
+<form id="form1" name="form1" enctype="multipart/form-data" method="post" action="">
+<input name="category_id" type="hidden" id="product_id" value="<?= $this->category->category_id ?>" />
+
+<div id="sinistra">
+
+	Name Category:
+    <input type="text" name="category_name" id="category_name" size="50" value="<?= $this->category->category_name ?>" />
+	<br />
+	<br />
+	Sub Category:
+	<select name="category_type" size="1" id="category_type">
+	<option value="0">Master</option>
+	<?php foreach($this->categorytype as $categorytype): ?> 
+		<? if($categorytype['category_type'] == '0') { ?>
+				
+		
+			
+  		<option value="<?= $categorytype['category_id'] ?>" 
+  		<? if($categorytype['category_id'] == $this->category->category_type){ 
+  		echo 'selected="selected"';
+  		
+  		}?>
+  		
+  		><?= $categorytype['category_name'] ?></option>
+  		<? } ?>
+  	<?php endforeach;?>
+	</select>
+	
+  
+  	<br />
+	<br />
+  <input type="submit" name="button" id="button" value="Save" />
+
+
+</div>
+
+<div id="destra">
+
+
+
+</div>
+</form>
+
+<div class="clear"></div>

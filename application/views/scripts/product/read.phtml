@@ -1,0 +1,87 @@
+<div id="left">
+
+	<h1><?= $this->product->product_name ?></h1>
+
+
+
+				<?
+					if(is_file('meme-media/products/'.$this->product->product_id.'/thumb.jpg')){
+					echo '<a href="/product/'.$this->product->product_id.'/'.$this->product->product_name.'" style="float: left; margin-right: 5px;"><img src="/meme-media/products/'.$this->product->product_id.'/thumb.jpg" /></a>';
+					}
+					
+				?>
+
+
+
+		<?= $this->product->product_content ?>
+		
+		
+		
+		
+		
+		
+		
+		<?php foreach($this->field as $field): ?>
+
+
+	<?php foreach($this->value as $value): 
+	
+		if($field['products_attribute_id']==$value['product_attribute_id']){
+		
+			$valuefield = $value['product_value'];
+		
+		}
+
+	 endforeach;
+
+
+		$id_attribute = $this->escape($field['products_attribute_id']);
+		$type = $this->escape($field['products_attribute_type']);
+			
+		if($type == 'text_field'){
+			echo '<br />';
+			echo $valuefield;
+		}
+		elseif($type == 'text_area'){
+			echo '<br />';
+			echo $valuefield;
+		}
+		elseif($type == 'media_image'){
+		 
+			  if(is_file('meme-media/products/'.$this->product->product_id.'/thumb/'.$id_attribute.'.jpg')){
+  
+ 			 	echo '<img src="/meme-media/products/'.$this->product->product_id.'/thumb/'.$id_attribute.'.jpg" />';
+
+ 				 }
+		}
+
+
+	 endforeach;?>
+		
+		
+		
+		
+		
+		
+	
+<p><em>&#8212; Posted on <?= $post_date = new Zend_Date($this->product->product_date, Zend_Date::TIMESTAMP); ?> <!--by Alessio --></em> in: 
+
+	<?php foreach($this->meme->getCategoryFromProduct($this->product->product_id) as $category): ?>  
+	
+		<a href="/articles/<?= $category['category_name_url'] ?>"><?= $category['category_name'] ?></a> 
+	
+	<?php endforeach;?>
+
+
+
+</p>
+
+	
+</div>
+
+<div id="right">
+	<?= $this->Products_Category(); ?>
+	<?= $this->Products_Recent(); ?>
+</div>
+
+<div class="clear"></div>

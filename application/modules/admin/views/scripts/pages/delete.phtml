@@ -1,0 +1,17 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+ 		  	
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'delete'), 'default', false) ?>"><strong>DELETE: <?= $this->page->page_title ?></strong></a></li>
+
+  		</ul>
+	
+			
+	<h1>Delete page</h1>
+	
+	<p>Vuoi eliminare questa pagina?</p>
+	<a href="/admin/pages/delete/id/<?= $this->page->page_id ?>/confirm/yes">YES</a> or <a href="/admin/pages/">NO</a>
+	
+	
+	
+        <br />

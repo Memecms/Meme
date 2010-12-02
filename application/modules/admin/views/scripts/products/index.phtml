@@ -1,0 +1,64 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'category'), 'default', true) ?>"><strong>CATEGORY</strong></a></li>
+  		</ul>
+
+			
+	     	<table id="gradient-style" summary="Meeting Results">
+    		
+    			<thead>
+    				<tr>
+        				<th scope="col">ID</th>
+        				
+        				<th scope="col">Title</th>
+        				
+        				<th scope="col">Category</th>
+        				<th scope="col">User</th>
+        				<th scope="col">Date</th>
+        				
+           				
+      				   
+      				    
+      				    <th scope="col"></th>
+      				    <th scope="col"></th>
+        			</tr>
+    			</thead>
+    			
+    			
+    			<tfoot>
+    				<tr>
+        				<td colspan="7"><?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></td>
+        			</tr>
+    			</tfoot>
+    			
+    			
+    			<tbody>
+    			
+        			<?php if (count($this->paginator)): ?>
+						<?php foreach ($this->paginator as $page ): ?>
+					<tr>
+        				<td><?= $this->escape($page['product_id']); ?></td>
+        				<td><a href="/admin/products/edit/id/<?= $this->escape($page['product_id']); ?>"><?= $this->escape($page['product_name']); ?></a></td>
+        				<td></td>
+        				<td></td>
+        				<td><?= new Zend_Date($page['product_date'], Zend_Date::TIMESTAMP); ?></td>
+
+
+            			<td><a href="/admin/products/edit/id/<?= $this->escape($page['product_id']); ?>">EDIT</a></td>
+            			<td><a href="/admin/products/delete/id/<?= $this->escape($page['product_id']); ?>">DELETE</a></td>
+        			</tr>
+        			
+        				<?php endforeach; ?>
+					<?php endif; ?>
+
+        		</tbody>
+
+			</table>
+			
+			   
+        <br />
+        
+        

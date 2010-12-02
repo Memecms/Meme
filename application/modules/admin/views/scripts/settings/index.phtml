@@ -1,0 +1,25 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'settings','action'=>'index'), 'default', true) ?>"><strong>GENERAL</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'settings','action'=>'products'), 'default', true) ?>"><strong>PRODUCT</strong></a></li>
+  		</ul>
+
+			
+<h1>General Settings</h1>
+
+
+<div id="sinistra">
+
+
+
+<?= $this->settingForm; ?>
+
+</div>
+
+<div id="destra">
+
+
+
+
+</div>
+
+<div class="clear"></div>

@@ -1,0 +1,18 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'category'), 'default', true) ?>"><strong>CATEGORY</strong></a></li>
+ 		  	
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'delete'), 'default', false) ?>"><strong>DELETE: <?= $this->product->product_name ?></strong></a></li>
+
+  		</ul>
+	
+			
+	<h1>Delete Products</h1>
+	
+	<p>Vuoi eliminare il prodotto <b><?= $this->product->product_name ?></b> ?</p>
+	<a href="/admin/products/delete/id/<?= $this->product->product_id ?>/confirm/yes">YES</a> or <a href="/admin/products/">NO</a>
+	
+	
+	
+        <br />

@@ -1,0 +1,76 @@
+	<ul id="menuSecondary" class="clearfix">
+		<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+		<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'new'), 'default', true) ?>"><strong>WRITE</strong></a></li>
+		<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'posts','action'=>'categories'), 'default', true) ?>"><strong>CATEGORIES</strong></a></li>
+	</ul>
+			
+	     	<table id="gradient-style" summary="Meeting Results">
+    		
+    			<thead>
+    				<tr>
+        				<th scope="col">ID</th>
+           				<th scope="col">Article</th>
+      				    <th scope="col">Category</th>
+      				    <th scope="col">User</th>
+      				    <th scope="col">Date</th>
+      				    
+      				    <th scope="col"></th>
+      				    <th scope="col"></th>
+      				 
+        			</tr>
+    			</thead>
+    			
+    			
+    			<tfoot>
+    				<tr>
+        				<td colspan="7">
+        				<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?>
+        				
+        				</td>
+        			</tr>
+    			</tfoot>
+    			
+    			
+    			<tbody>
+    			
+    				<?php if (count($this->paginator)): ?>
+						<?php foreach ($this->paginator as $page ): ?>
+					<tr>
+            			
+            			<td><?= $this->escape($page['post_id']); ?></td>
+           				<td><a href="/admin/posts/edit/id/<?= $this->escape($page['post_id']); ?>"><?= $this->escape($page['post_title']); ?></a></td>
+            			<td>
+            			
+            				
+            				<?php foreach($page['category'] as $category): ?>  
+	
+								<a href="/articles/<?= $category['category_name_url'] ?>"><?= $category['category_name'] ?></a><? if(end($page['category']) != $category) 
+		{echo ',';}						
+								?>
+	
+							<?php endforeach;?>
+
+            			
+            			</td>
+            			<td><?= $this->escape($page['post_user']['user_username']); ?></td>
+            			<td><?= new Zend_Date($page['post_date'], Zend_Date::TIMESTAMP); ?></td>
+           				
+            			<td><a href="/admin/posts/edit/id/<?= $this->escape($page['post_id']); ?>">EDIT</a></td>
+            			<td><a href="/admin/posts/delete/id/<?= $this->escape($page['post_id']); ?>">DELETE</a></td>
+            			
+            			
+        			</tr>
+        			
+        				<?php endforeach; ?>
+					<?php endif; ?>
+
+    			</tbody>
+			</table>
+			
+			   
+        <br />
+        <br />
+        
+        

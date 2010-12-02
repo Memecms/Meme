@@ -1,0 +1,93 @@
+<ul id="menuSecondary" class="clearfix">
+	
+	<li class="selected"><a href="<?= $this->url(array('module'=>'admin','controller'=>'index','action'=>'index'), 'default', true) ?>"><strong>DASHBOARD</strong></a></li>
+ 	
+</ul>
+  		
+
+
+<h1>Home</h1>
+
+
+<div id="sinistra">
+
+
+
+ 		
+
+
+<div id="graphdiv2" style="width:650px; height:300px; border-color: #bfbfbf; padding: 5px;
+	border-width: 5px;
+	border-style: solid;"></div>
+<script type="text/javascript">
+  g2 = new Dygraph(
+    document.getElementById("graphdiv2"),
+    "/admin/ajax/analitycs", // path to CSV file
+    { rollPeriod: 5,showRoller: true
+       }          // options
+  );
+</script>
+
+
+<br /><br />
+<br />
+<br /><br />
+<br />
+<br /><br />
+<br />
+<br /><br />
+<br />
+<br /><br />
+<br />
+<br /><br />
+<br />
+	<div id="uptime">
+			<?php echo exec('uptime'); ?>
+			</div>
+
+</div>
+
+
+<div id="destra">
+<?= $this->accordion('.accordionClose', true); ?>
+
+
+<?= $this->button('#buttonSitemap'); ?>
+<?= $this->button('#buttonCache'); ?>
+
+
+
+<div class="accordionClose">
+  <h3><a href="#">GOOGLE SITEMAP</a></h3>
+  <div>
+
+<p>Click send only change content your site.
+<?= $this->ajaxLink("SEND", "/admin/ajax/ping", array('beforeSend' => 'hide', 'complete' => 'show', 'id' => 'buttonSitemap',)); ?>
+</p>
+    </div>
+</div>
+
+
+
+
+<div class="accordionClose">
+  <h3><a href="#">CACHE</a></h3>
+  <div>
+<p>
+<?= $this->ajaxLink("CLEAN CACHE", "/admin/ajax/cleancache", array('beforeSend' => 'hide', 'complete' => 'show','id' => 'buttonCache',)); ?>
+</p>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="clear"></div>

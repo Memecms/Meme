@@ -1,0 +1,31 @@
+<div id="left">
+
+	<h1><?= $this->post['post_title'] ?></h1>
+
+		<?= $this->post['post_content'] ?>
+	
+<p><em>&#8212; Posted on <?= $post_date = new Zend_Date($this->post['post_date'], Zend_Date::TIMESTAMP); ?> by <?= $this->post['post_user']['user_username'] ?></em> in: 
+
+	<?php foreach($this->post['category'] as $category): ?>  
+	
+		<a href="/articles/<?= $category['category_name_url'] ?>"><?= $category['category_name'] ?></a> 
+		<? if(end($this->post['category']) != $category){echo ', ';} ?>
+	<?php endforeach;?>
+
+
+
+</p>
+
+	
+</div>
+
+<div id="right">
+	<div id="category">
+	<?= $this->Meme_Category_get('post'); ?>
+	</div>
+	<div id="recent_post">
+	<?= $this->Meme_Posts_Recent(); ?>
+	</div>
+</div>
+
+<div class="clear"></div>

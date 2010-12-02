@@ -1,0 +1,159 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'category'), 'default', true) ?>"><strong>CATEGORY</strong></a></li>
+  		</ul>
+
+	<h1>Add new product</h1>
+<form id="form1" name="form1" enctype="multipart/form-data" method="post" action="/admin/products/new">
+
+<div id="sinistra">
+
+	      
+    <input type="text" name="product_name" id="product_name" size="50" style="width: 590px" />
+
+<br />
+  <br />
+  
+  <input type="file" name="product_thumb" id="product_thumb" style="width: 590px"/>
+  
+   <br />
+<textarea name="product_content" id="product_content" rows="7" style="width: 600px"></textarea>
+<?php echo $this->setupEditor( 'product_content' ); ?>
+
+
+	<?php if(count($this->field)): ?>  
+<?php foreach($this->field as $field): ?>  
+	
+	
+	<?php
+		$id_attribute = $this->escape($field['products_attribute_id']);
+		$type = $this->escape($field['products_attribute_type']);
+		$name = $this->escape($field['products_attribute_name']);
+			echo '<br /><br />';
+			echo $name;
+		if($type == 'text_field'){
+			echo '<input type="text" name="field'. $id_attribute . '" id="field'. $id_attribute . '" style="width: 300px" />';
+		}
+		elseif($type == 'text_area'){
+			echo '<textarea name="field'. $id_attribute . '" id="field'. $id_attribute . '" style="width: 600px"></textarea>';
+			echo $this->setupEditor( 'field'. $id_attribute );
+		}
+		elseif($type == 'media_image'){
+			echo '<input type="file" name="field'. $id_attribute . '" id="field'. $id_attribute . '" />';
+		}
+	
+	?>
+	
+	
+	
+<?php endforeach;?>  
+<?php endif;?>
+	
+
+
+
+
+</div>
+
+<div id="destra">
+<?= $this->accordion('.accordionClose', true); ?>
+<?= $this->accordion('.accordion'); ?>
+
+
+
+  <input type="submit" name="button" id="button" value="Save" />
+    <?= $this->button('#button'); ?>
+
+  <br />
+  <br />
+
+
+<div class="accordionClose">
+  <h3><a href="#">Date</a></h3>
+  <div>
+
+  <?= $this->datePicker("datepicker",date("Y-m-d"),array('dateFormat' => 'yy-mm-dd')); ?><br />
+  <input type="text" id="hh" name="hh" value="<?= date("H") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off"> : <input type="text" id="mn" name="mn" value="<?= date("i") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off">
+
+<br>
+
+
+
+    </div>
+</div>
+<input name="product_user" type="hidden" id="product_user" value="<?= $this->identity['user_id'] ?>" />
+
+
+
+<div class="accordion">
+  <h3><a href="#">Category</a></h3>
+  <div>
+
+
+	<?php if(count($this->category)): ?>
+		<?php foreach($this->category as $category): ?>  
+			<? if($category['category_type'] == 0){ ?>
+			<label>
+  				<input name="category<?= $category['category_id']?>" type="checkbox" id="category" value="1" />
+  				<?= $category['category_name']?>
+			</label>
+			<br />
+			
+				<?php foreach($this->category as $subcategory): 
+					if($subcategory['category_type'] == $category['category_id']){?>
+						<label style="margin-left: 10px;">
+  							<input name="category<?= $subcategory['category_id']?>" type="checkbox" id="category<?= $subcategory['category_id']?>" value="1" />
+  							<?= $subcategory['category_name']?>
+						</label>
+						<br />
+					<? } ?>
+
+				<?php endforeach;?>
+			<? } ?>
+		<?php endforeach;?>  
+	<?php endif;?>  
+
+</div></div>
+
+
+<div class="accordionClose">
+  <h3><a href="#">Gallery</a></h3>
+  <div>
+
+
+
+<select name="gallery" size="1" id="gallery">
+  <option value="none">Select</option>
+  
+	<?php if(count($this->gallery)): ?>
+		<?php foreach($this->gallery as $gallery): ?>  
+  				<option value="<?= $gallery['gallery_id']?>"><?= $gallery['gallery_title']?></option>
+			
+		<?php endforeach;?>  
+	<?php endif;?>  
+
+
+</select>
+
+
+
+</div></div>
+
+<div class="accordion">
+  <h3><a href="#">Meta Tag</a></h3>
+  <div>
+
+<h4>Description</h4>
+<textarea name="product_description" rows="7" id="product_description" style="width: 200px"></textarea>
+
+
+<h4>Keywords</h4>
+<textarea name="product_keywords" rows="6" id="product_keywords" style="width: 200px"></textarea>
+</div></div>
+
+
+</div>
+</form>
+
+<div class="clear"></div>

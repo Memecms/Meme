@@ -1,0 +1,21 @@
+<div id="left">
+
+	<h4>Category <?= $this->categoryname ?></h4>
+
+	<?= $this->Meme_Posts_Lists(false, $this->ItemForPage, $this->PostList); ?>
+	
+	<?= $this->paginationControl($this->PostList,
+                                    'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?>
+</div>
+
+<div id="right">
+	<div id="category">
+	<?= $this->Meme_Category_get('post'); ?>
+	</div>
+	<div id="recent_post">
+	<?= $this->Meme_Posts_Recent(); ?>
+	</div>
+</div>
+
+<div class="clear"></div>

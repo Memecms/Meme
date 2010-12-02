@@ -1,0 +1,60 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'index'), 'default', true) ?>"><strong>GALLERY</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'album'), 'default', true) ?>"><strong>ALBUM</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'images'), 'default', true) ?>"><strong>IMAGES</strong></a></li>
+ 	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'gallery','action'=>'uploadimages'), 'default', true) ?>"><strong>UPLOAD IMAGES</strong></a></li>
+  		</ul>
+
+
+	<h1>Add new Gallery</h1>
+<form id="form1" name="form1" method="post" action="/admin/gallery/gallerynew">
+
+<div id="sinistra">
+
+	      
+    <input type="text" name="gallery_title" id="gallery_title" size="50" style="width: 590px" />
+
+<br />
+  <br />
+  <br />
+  <textarea name="gallery_content" id="gallery_content" style="width:600px; height: 500px;"></textarea>
+
+<?php echo $this->setupEditor( 'gallery_content' ); ?>
+
+
+</div>
+
+<div id="destra">
+  <input type="submit" name="button" id="button" value="Save" />
+  <br />
+  
+  
+  
+
+  <h3>Date</h3>
+  <?= $this->datePicker("datepicker",date("Y-m-d"),array('dateFormat' => 'yy-mm-dd')); ?><br />
+  <input type="text" id="hh" name="hh" value="<?= date("H") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off"> : <input type="text" id="mn" name="mn" value="<?= date("i") ?>" size="2" maxlength="2" tabindex="4" autocomplete="off">
+
+
+
+<br>
+<h3>User</h3>
+
+<select name="gallery_user" size="1" id="post_user">
+	<option value="1">admin</option>
+</select>
+<br>
+
+<h3>Description</h3>
+<textarea name="gallery_description" rows="7" id="gallery_description" style="width: 255px"></textarea>
+
+
+<h3>Keywords</h3>
+<textarea name="gallery_keywords" rows="6" id="gallery_keywords" style="width: 255px"></textarea>
+
+
+
+</div>
+</form>
+
+<div class="clear"></div>

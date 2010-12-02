@@ -1,0 +1,76 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'category'), 'default', true) ?>"><strong>CATEGORY</strong></a></li>
+  		</ul>
+
+
+
+
+			<a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'categorynew'), 'default', true) ?>" class="button">Add Category</a><br /><br />
+			
+				  <?= $this->button('.button'); ?>
+
+	     	<table id="gradient-style" summary="Meeting Results">
+    		
+    			<thead>
+    				<tr>
+        				<th scope="col">ID</th>
+        				
+        				<th scope="col">Category</th>
+        				
+        				<th scope="col">Sub Category</th>
+        				<th scope="col"></th>
+        				
+           				
+      				   
+      				    
+      				    <th scope="col"></th>
+      				    <th scope="col"></th>
+        			</tr>
+    			</thead>
+    			
+    			
+    			<tfoot>
+    				<tr>
+        				<td colspan="6"></td>
+        			</tr>
+    			</tfoot>
+    			
+    			
+    			<tbody>
+    			
+        			<?php if (count($this->category)): ?>
+						<?php foreach ($this->category as $category): ?>
+					<tr>
+        				<td><?= $category['category_id'] ?></td>
+        				<td><a href="/admin/products/categoryedit/id/<?= $category['category_id'] ?>"><?= $category['category_name'] ?></a></td>
+        				<td>
+        				<?php 
+        					if($category['category_type'] == '0'){
+        						echo $category['category_name'];
+        					}else{
+        						foreach ($this->category as $subcategory):
+        							if($category['category_type'] == $subcategory['category_id'])
+        							{
+        								echo $subcategory['category_name'];
+        							}
+        						endforeach;
+        					}
+        				?>
+        				</td>
+        				<td></td>
+
+
+            			<td><a href="/admin/products/categoryedit/id/<?= $category['category_id'] ?>">EDIT</a></td>
+            			<td><a href="/admin/products/categorydelete/id/<?= $category['category_id'] ?>">DELETE</a></td>
+        			</tr>
+
+        				<?php endforeach; ?>
+					<?php endif; ?>
+
+        		</tbody>
+
+			</table>
+ 
+        <br />

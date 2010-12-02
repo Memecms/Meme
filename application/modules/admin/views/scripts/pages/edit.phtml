@@ -1,0 +1,73 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+ 		  	
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'edit'), 'default', false) ?>"><strong>EDIT: <?= $this->page->page_title ?></strong></a></li>
+
+  		</ul>
+
+	<h1>Edit Page</h1>
+<form id="form1" name="form1" method="post" action="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'edit'), 'default', false) ?>">
+
+<input name="page_id" type="hidden" id="page_id" value="<?= $this->page->page_id ?>" />
+
+<input name="page_controller_old" type="hidden" id="page_controller_old" value="<?= $this->page->page_controller ?>" />
+<input name="page_action_old" type="hidden" id="page_action_old" value="<?= $this->page->page_action ?>" />
+
+
+<div id="sinistra">
+
+	      
+    <input type="text" name="page_title" id="page_title" size="50" style="width: 590px" value="<?= $this->page->page_title ?>"/>
+
+<br />
+  <br />
+  <br />
+  <textarea name="page_content" id="page_content" style="width:600px; height: 500px;"><?= $this->page->page_content ?></textarea>
+
+<?php echo $this->setupEditor( 'page_content' ); ?>
+
+
+</div>
+
+<div id="destra">
+
+<?= $this->accordion('.accordionClose', true); ?>
+<?= $this->accordion('.accordion'); ?>
+
+  <input type="submit" name="button" id="button" value="Save" />
+      <?= $this->button('#button'); ?>
+
+  <br />
+  
+<div class="accordion">
+  <h3><a href="#">Meta Tag</a></h3>
+  <div>
+
+
+<h4>Description</h4>
+<textarea name="page_description" rows="7" id="page_description" style="width: 200px"><?= $this->page->page_description ?></textarea>
+
+
+<h4>Keywords</h4>
+<textarea name="page_keywords" rows="6" id="page_keywords" style="width: 200px"><?= $this->page->page_keywords ?></textarea>
+
+</div></div>
+
+
+<div class="accordionClose">
+  <h3><a href="#">System</a></h3>
+  <div>
+
+
+<h4>Page:</h4>
+<input type="text" name="page_controller" id="page_controller" style="width: 200px" value="<?= $this->page->page_controller ?>" />
+ 
+<h4>SubPage:</h4>
+<input type="text" name="page_action" id="page_action" style="width: 200px" value="<?= $this->page->page_action ?>" />
+</div></div>
+
+</div>
+</form>
+
+<div class="clear"></div>

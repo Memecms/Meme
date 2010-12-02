@@ -1,0 +1,62 @@
+		<ul id="menuSecondary" class="clearfix">
+ 			<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'index'), 'default', true) ?>"><strong>EDIT</strong></a></li>
+ 		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'pages','action'=>'new'), 'default', true) ?>"><strong>NEW</strong></a></li>
+  		</ul>
+
+			
+	     	<table id="gradient-style" summary="Meeting Results">
+    		
+    			<thead>
+    				<tr>
+        				<th scope="col">ID</th>
+        				
+        				<th scope="col">Title</th>
+        				
+        				<th scope="col">Page</th>
+        				<th scope="col">SubPage</th>
+        				
+           				
+      				   
+      				    
+      				    <th scope="col"></th>
+      				    <th scope="col"></th>
+        			</tr>
+    			</thead>
+    			
+    			
+    			<tfoot>
+    				<tr>
+        				<td colspan="6"><?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></td>
+        			</tr>
+    			</tfoot>
+    			
+    			
+    			<tbody>
+    			
+        			
+        			<?php if (count($this->paginator)): ?>
+						<?php foreach ($this->paginator as $page ): ?>
+					<tr>
+        				<td><?= $this->escape($page['page_id']); ?></td>
+        				<td><a href="/admin/pages/edit/id/<?= $this->escape($page['page_id']); ?>"><?= $this->escape($page['page_title']); ?></a></td>
+        				<td><?= $this->escape($page['page_controller']); ?></td>
+        				<td><?= $this->escape($page['page_action']); ?></td>
+           				
+            		
+            			<td><a href="/admin/pages/edit/id/<?= $this->escape($page['page_id']); ?>">EDIT</a></td>
+            			<td><a href="/admin/pages/delete/id/<?= $this->escape($page['page_id']); ?>">DELETE</a></td>
+        			</tr>
+        			
+        				<?php endforeach; ?>
+					<?php endif; ?>
+
+        		</tbody>
+
+			</table>
+			
+			   
+        <br />
+        
+        
