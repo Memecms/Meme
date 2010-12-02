@@ -78,7 +78,7 @@ CREATE TABLE `meme_db_version` (
 -- Dump dei dati per la tabella `meme_db_version`
 --
 
-INSERT INTO `meme_db_version` VALUES('0.1.7', '$Rev: 364 $');
+INSERT INTO `meme_db_version` VALUES('0.1.8', '$Rev: 364 $');
 
 -- --------------------------------------------------------
 
