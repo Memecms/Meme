@@ -43,9 +43,11 @@ class Admin_SettingsController extends Zend_Controller_Action
 		
 		
 		// Setting model
-		$SettingsModel = new Admin_Model_DbTable_SettingsTable();
-		$this->view->setting_sitetitle = $SettingsModel->get('sitetitle');
+		$this->view->SettingsModel = new Admin_Model_DbTable_SettingsTable();
+		$this->view->setting_sitetitle = $this->view->SettingsModel->get('sitetitle');
 		
+		
+		//models
 
 
 
@@ -63,26 +65,15 @@ class Admin_SettingsController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
-        $settingForm = new Admin_Form_SettingGeneral();
-        $settingModel = new Admin_Model_DbTable_SettingsTable();
 		$request = $this->getRequest();
 
 			if ($this->getRequest()->isPost()) {
-				if ($settingForm->isValid($request->getPost())) {
-					//Zend_Debug::dump($settingForm->getValues());
-					$settingModel->updateSetting($settingForm->getValues());
-					
-					$this->_redirect('/admin/settings');
-				}
-			} else {
-				$result = $settingModel->getAllSettingGeneral();
-				//Zend_Debug::dump($result);
-				$settingForm->populate($result);
-			}
-
-
-		$this->view->settingForm = $settingForm;
+				
+				
+				$this->view->SettingsModel->updateAll($request->getPost());
+				$this->_redirect('/admin/settings');
+			} 
+			
           
     }
 

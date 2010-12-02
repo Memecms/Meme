@@ -61,6 +61,59 @@ class Admin_Model_DbTable_SettingsTable extends Zend_Db_Table_Abstract {
 
 
 
+	public function updateAll($setting)
+	{
+	
+		
+	
+		$data = array('setting_value'=> $setting['sitetitle'],);
+		$where = $this->getAdapter()->quoteInto('setting_name = ?', 'sitetitle');
+		$this->update($data , $where );
+
+		$data = array('setting_value'=> $setting['tagline'],);
+		$where = $this->getAdapter()->quoteInto('setting_name = ?', 'tagline');
+		$this->update($data , $where );
+
+		$data = array('setting_value'=> $setting['address'],);
+		$where = $this->getAdapter()->quoteInto('setting_name = ?', 'address');
+		$this->update($data , $where );
+
+		$data = array('setting_value'=> $setting['emailaddress'],);
+		$where = $this->getAdapter()->quoteInto('setting_name = ?', 'emailaddress');
+		$this->update($data , $where );
+		
+		$data = array('setting_value'=> $setting['analitycs_id'],);
+		$where = $this->getAdapter()->quoteInto('setting_name = ?', 'analitycs_id');
+		$this->update($data , $where );
+
+		$data = array('setting_value'=> $setting['analitycs_username'],);
+		$where = $this->getAdapter()->quoteInto('setting_name = ?', 'analitycs_username');
+		$this->update($data , $where );
+
+		$data = array('setting_value'=> $setting['analitycs_password'],);
+		$where = $this->getAdapter()->quoteInto('setting_name = ?', 'analitycs_password');
+		$this->update($data , $where );
+
+		
+		
+		//cache
+		if(extension_loaded('apc') == 1)
+					{	// clean all records
+						$this->cache->clean(Zend_Cache::CLEANING_MODE_ALL);
+ 
+					}
+				else
+					{
+						$this->cache->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, array($this->_name));
+						$this->cache->clean(Zend_Cache::CLEANING_MODE_OLD);					
+					}
+		//end cache
+
+
+	}
+
+
+
 
 
 

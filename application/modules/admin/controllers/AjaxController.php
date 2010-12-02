@@ -93,16 +93,14 @@ class Admin_AjaxController extends Zend_Controller_Action
 	public function analitycsAction()
 	{
 
-		$end_date = date('Y-m-d');
-		$id = 'Analytics_date_'.$end_date;
-		$id = $this->urlAdapter->cleanURL($id);
+		$id = 'Analytics';
 		
 		if(!($data = $this->cache->load($id)))
 			{
 			
-		$gapi = new Admin_Model_gapi();
+		$gapi = new Admin_Model_gapi($this->SettingsModel->get('analitycs_username'), $this->SettingsModel->get('analitycs_password'));
 
- 		$gapi->requestReportData(21731193,array('date'),array('visits', 'visitors'), '-date', '', date('Y-m-d', strtotime('-12 month')), date('Y-m-d'), 1, 600);
+ 		$gapi->requestReportData($this->SettingsModel->get('analitycs_id'),array('date'),array('visits', 'visitors'), '-date', '', date('Y-m-d', strtotime('-12 month')), date('Y-m-d'), 1, 600);
 		// requestReportData($report_id, $dimensions, $metrics, $sort_metric=null, $filter=null, $start_date=null, $end_date=null, $start_index=1, $max_results=30)
 
 $cvs= "Date,visits,visitors \n";

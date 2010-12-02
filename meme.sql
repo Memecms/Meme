@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.0.1
+-- version 3.2.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: 28 nov, 2010 at 07:48 PM
--- Versione MySQL: 5.1.37
--- Versione PHP: 5.2.10
+-- Generato il: 02 dic, 2010 at 08:33 PM
+-- Versione MySQL: 5.1.44
+-- Versione PHP: 5.3.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -33,13 +33,14 @@ CREATE TABLE `meme_category` (
   `category_type` int(11) unsigned NOT NULL,
   `category_user_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dump dei dati per la tabella `meme_category`
 --
 
 INSERT INTO `meme_category` VALUES(1, 1, 'First Category', 'first_category', 0, 1);
+INSERT INTO `meme_category` VALUES(2, 3, 'kljhjhj', 'kljhjhj', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -274,12 +275,17 @@ CREATE TABLE `meme_products` (
   `product_user` int(11) unsigned NOT NULL,
   `product_url` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dump dei dati per la tabella `meme_products`
 --
 
+INSERT INTO `meme_products` VALUES(1, 'lkjlkj', '', '', '', 1291158720, 1, '');
+INSERT INTO `meme_products` VALUES(2, 'lkjlkj', '', '', '', 1291158840, 1, '');
+INSERT INTO `meme_products` VALUES(3, 'lkjlkj', '', '', '', 1291158900, 1, '');
+INSERT INTO `meme_products` VALUES(4, 'jkhkhb', '', '', '', 1291159140, 1, 'jkhkhb');
+INSERT INTO `meme_products` VALUES(5, 'lkjljkhljkhl', '', '', '', 1291159320, 1, 'lkjljkhljkhl');
 
 -- --------------------------------------------------------
 
@@ -317,12 +323,27 @@ CREATE TABLE `meme_products_value` (
   `product_attribute_id` int(11) NOT NULL,
   `product_value` mediumtext NOT NULL,
   PRIMARY KEY (`product_value_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dump dei dati per la tabella `meme_products_value`
 --
 
+INSERT INTO `meme_products_value` VALUES(1, 1, 1, '');
+INSERT INTO `meme_products_value` VALUES(2, 1, 2, '');
+INSERT INTO `meme_products_value` VALUES(3, 1, 3, '');
+INSERT INTO `meme_products_value` VALUES(4, 2, 1, '');
+INSERT INTO `meme_products_value` VALUES(5, 2, 2, '');
+INSERT INTO `meme_products_value` VALUES(6, 2, 3, '');
+INSERT INTO `meme_products_value` VALUES(7, 3, 1, '');
+INSERT INTO `meme_products_value` VALUES(8, 3, 2, '');
+INSERT INTO `meme_products_value` VALUES(9, 3, 3, '');
+INSERT INTO `meme_products_value` VALUES(10, 4, 1, '');
+INSERT INTO `meme_products_value` VALUES(11, 4, 2, '');
+INSERT INTO `meme_products_value` VALUES(12, 4, 3, '');
+INSERT INTO `meme_products_value` VALUES(13, 5, 1, 'jknljn');
+INSERT INTO `meme_products_value` VALUES(14, 5, 2, 'lkjjknlkj');
+INSERT INTO `meme_products_value` VALUES(15, 5, 3, '');
 
 -- --------------------------------------------------------
 
@@ -335,16 +356,19 @@ CREATE TABLE `meme_settings` (
   `setting_name` varchar(255) NOT NULL,
   `setting_value` varchar(255) NOT NULL,
   PRIMARY KEY (`setting_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dump dei dati per la tabella `meme_settings`
 --
 
 INSERT INTO `meme_settings` VALUES(1, 'sitetitle', 'Meme CMS');
-INSERT INTO `meme_settings` VALUES(2, 'address', 'http://localhost:8888');
+INSERT INTO `meme_settings` VALUES(2, 'address', 'http://memecms.com');
 INSERT INTO `meme_settings` VALUES(3, 'emailaddress', 'info@memecms.com');
 INSERT INTO `meme_settings` VALUES(4, 'tagline', 'memecms framework RAD');
+INSERT INTO `meme_settings` VALUES(5, 'analitycs_id', '');
+INSERT INTO `meme_settings` VALUES(6, 'analitycs_username', '');
+INSERT INTO `meme_settings` VALUES(7, 'analitycs_password', '');
 
 -- --------------------------------------------------------
 

@@ -4,14 +4,65 @@
   		</ul>
 
 			
-<h1>General Settings</h1>
+<h1>Settings</h1>
 
 
 <div id="sinistra">
 
+<form id="form1" name="form1" method="post" action="">
+
+<h3>General Settings</h3>
+<table width="100%" border="0">
+  <tr>
+    <td width="200">Site Title:</td>
+    <td>
+    <input name="sitetitle" type="text" id="sitetitle" value="<?= $this->SettingsModel->get('sitetitle'); ?>" size="50" /></td>
+  </tr>
+  <tr>
+    <td>Tagline:</td>
+    <td>    
+    <input name="tagline" type="text" id="tagline" value="<?= $this->SettingsModel->get('tagline'); ?>" size="50" /></td>
+  </tr>
+  <tr>
+    <td>Site address (URL):</td>
+    <td>
+    <input name="address" type="text" id="address" value="<?= $this->SettingsModel->get('address'); ?>" size="50" /></td>
+  </tr>
+  <tr>
+    <td>E-mail address:</td>
+    <td>
+    <input name="emailaddress" type="text" id="emailaddress" value="<?= $this->SettingsModel->get('emailaddress'); ?>" size="50" /></td>
+  </tr>
+</table>
+
+<br />
+<h3>Analityc Settings</h3>
+
+<table width="100%" border="0">
+  <tr>
+    <td width="200">Id site:</td>
+    <td>
+    <input name="analitycs_id" type="text" id="analitycs_id" value="<?= $this->SettingsModel->get('analitycs_id'); ?>" size="50" /></td>
+  </tr>
+  <tr>
+    <td>Username:</td>
+    <td>
+    <input name="analitycs_username" type="text" id="analitycs_username" value="<?= $this->SettingsModel->get('analitycs_username'); ?>" size="50" /></td>
+  </tr>
+  <tr>
+    <td>Password:</td>
+    <td>
+    <input name="analitycs_password" type="password" id="analitycs_password" value="<?= $this->SettingsModel->get('analitycs_password'); ?>" size="50" /></td>
+  </tr>
+</table>
 
 
-<?= $this->settingForm; ?>
+
+  <input type="submit" name="button" id="button" value="Save" />
+  <?= $this->button('#button'); ?>
+
+</form>
+
 
 </div>
 
