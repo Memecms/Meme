@@ -57,7 +57,9 @@ class Admin_ProductsController extends Zend_Controller_Action
         $this->AttributeModel = new Admin_Model_DbTable_Products_AttributeTable();
         $this->ValueModel = new Admin_Model_DbTable_Products_ValueTable();
 
+		
 		$this->GalleryModel = new Admin_Model_DbTable_Gallery_GalleryTable();
+		$this->GalleryAddModel = new Admin_Model_DbTable_Gallery_GalleryAddTable();
 		$this->imgAdapther = new Admin_Model_imgAdapter();
 
 
@@ -253,16 +255,16 @@ class Admin_ProductsController extends Zend_Controller_Action
 				else
 				{	
 				
-					if ($galleryAdd->getFromIdObject('3', $productid) == '')
+					if ($galleryAdd->getFromIdObject('3', $product_id) == '')
 					{
 					
-						$galleryAdd->add('3', $productid, $field['gallery']);
+						$galleryAdd->add('3', $product_id, $field['gallery']);
 					
 					}
 					else
 					{
-						$galleryAdd->deleteObject('3', $productid);
-						$galleryAdd->add('3', $productid, $field['gallery']);
+						$galleryAdd->deleteObject('3', $product_id);
+						$galleryAdd->add('3', $product_id, $field['gallery']);
 					}
 							
 				}
@@ -271,21 +273,21 @@ class Admin_ProductsController extends Zend_Controller_Action
 
 
 
-				$this->_redirect('/admin/products/edit/id/'.$productid);
+				$this->_redirect('/admin/products/edit/id/'.$product_id);
 			
 			} else {
 			
 				$this->view->product = $this->ProductsModel->getFromProductId($product_id);
-				$this->view->field = $attribute->get();
-				$this->view->value = $valueModel->getValues($productid);
+				$this->view->field = $this->AttributeModel->getAll();
+				$this->view->value = $this->ValueModel->getValues($product_id);
 				
-				$this->view->category = $category->get();
-				$this->view->categoryadd = $categoryadd->getValues($productid);
+				$this->view->category = $this->CategoryModel->getAll(3);
+				$this->view->categoryadd = $this->CategoryAddModel->getFromObjectId(3, $product_id);
 
 
-				$this->view->gallery = $gallery->getGallery();
+				$this->view->gallery = $this->GalleryModel->getGallery();
 				
-				$this->view->galleryAdd = $galleryAdd->getFromIdObject(3, $productid);
+				$this->view->galleryAdd = $this->GalleryAddModel->getFromIdObject(3, $product_id);
 
 				
 			}

@@ -278,11 +278,11 @@ class Admin_Model_DbTable_ProductsTable extends Zend_Db_Table_Abstract {
 		if(!($data = $this->cache->load($id)))
 			{
 
-					$post = $this->fetchRow('post_id = '. $post_id)->toArray();
+					$product = $this->fetchRow('product_id = '. $product_id)->toArray();
 	              	
-	              	$categories = $this->CategoryAddModel->getFromObjectId(1, $post_id);
-					$post['category'] = array();
-					$post['post_user'] = $this->UserModel->getUsername($post['post_user']);
+	              	$categories = $this->CategoryAddModel->getFromObjectId(3, $product_id);
+					$product['category'] = array();
+					$post['product_user'] = $this->UserModel->getUsername($product['product_user']);
 								
 					$i_cat = 0;
 					foreach ($categories as $category):
@@ -292,8 +292,8 @@ class Admin_Model_DbTable_ProductsTable extends Zend_Db_Table_Abstract {
 				
 		
 				
-				$this->cache->save($post, $id, array($this->_name));
-				return $post;
+				$this->cache->save($product, $id, array($this->_name));
+				return $product;
 
 			}
 			else

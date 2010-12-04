@@ -4,19 +4,19 @@
  		  	<li><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'category'), 'default', true) ?>"><strong>CATEGORY</strong></a></li>
  		  	
  		  	
- 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'edit'), 'default', false) ?>"><strong>EDIT: <?= $this->product->product_name ?></strong></a></li>
+ 		  	<li class="selected"><a href="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'edit'), 'default', false) ?>"><strong>EDIT: <?= $this->product['product_name'] ?></strong></a></li>
 
   		</ul>
 
 	<h1>Edit product</h1>
 <form id="form1" name="form1" enctype="multipart/form-data" method="post" action="<?= $this->url(array('module'=>'admin', 'controller'=>'products','action'=>'edit'), 'default', false) ?>">
-<input name="product_id" type="hidden" id="product_id" value="<?= $this->product->product_id ?>" />
+<input name="product_id" type="hidden" id="product_id" value="<?= $this->product['product_id'] ?>" />
 <input name="product_url_old" type="hidden" id="product_url_old" value="<?= $this->product['product_url'] ?>" />
 
 <div id="sinistra">
 
 	      
-    <input type="text" name="product_name" id="product_name" size="50" style="width: 590px" value="<?= $this->product->product_name ?>" />
+    <input type="text" name="product_name" id="product_name" size="50" style="width: 590px" value="<?= $this->product['product_name'] ?>" />
 
 <br />
   <br />
@@ -25,9 +25,9 @@
 
   <input type="file" name="product_thumb" id="product_thumb" style="width: 590px"/>
   <?php 
-  if(is_file('meme-media/products/'.$this->product->product_id.'/thumb.jpg')){
+  if(is_file('meme-media/products/'.$this->product['product_id'].'/thumb.jpg')){
   
-  echo '<img src="/meme-media/products/'.$this->product->product_id.'/thumb.jpg" />';
+  echo '<img src="/meme-media/products/'.$this->product['product_id'].'/thumb.jpg" />';
   
   echo '<br /> <label>
   <input name="delete_thumb" type="checkbox" id="delete_thumb" value="1" />
@@ -38,7 +38,7 @@
   ?>
 
    <br />
-<textarea name="product_content" id="product_content" rows="7" style="width: 600px"><?= $this->product->product_content ?></textarea>
+<textarea name="product_content" id="product_content" rows="7" style="width: 600px"><?= $this->product['product_content'] ?></textarea>
 <?php echo $this->setupEditor( 'product_content' ); ?>
 
 <?php foreach($this->field as $field): ?>
@@ -78,7 +78,7 @@
 
 		
 			echo '<input type="file" name="field'. $id_attribute . '" id="field'. $id_attribute . '" /> <br />';
-			  if(is_file('meme-media/products/'.$this->product->product_id.'/thumb/'.$id_attribute.'.jpg')){
+			  if(is_file('meme-media/products/'.$this->product['product_id'].'/thumb/'.$id_attribute.'.jpg')){
   
  			 	echo '<img src="/meme-media/products/'.$this->product->product_id.'/thumb/'.$id_attribute.'.jpg" />';
   
@@ -185,11 +185,11 @@
 
 
 <h4>Description</h4>
-<textarea name="product_description" rows="7" id="product_description" style="width: 200px"><?= $this->product->product_description ?></textarea>
+<textarea name="product_description" rows="7" id="product_description" style="width: 200px"><?= $this->product['product_description'] ?></textarea>
 
 
 <h4>Keywords</h4>
-<textarea name="product_keywords" rows="6" id="product_keywords" style="width: 200px"><?= $this->product->product_keywords ?></textarea>
+<textarea name="product_keywords" rows="6" id="product_keywords" style="width: 200px"><?= $this->product['product_keywords'] ?></textarea>
 
 </div></div>
 
