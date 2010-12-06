@@ -123,7 +123,7 @@ class Admin_ProductsController extends Zend_Controller_Action
 					elseif($attributes['products_attribute_type'] == 'media_image'){
 					
 						if(!empty($_FILES['field'.$attributes['products_attribute_id']]['name'])){
-							$imgAdapther->productMore($_FILES['field'.$attributes['products_attribute_id']], $product_id, $attributes['products_attribute_id']);
+							$this->imgAdapther->productMore($_FILES['field'.$attributes['products_attribute_id']], $product_id, $attributes['products_attribute_id']);
 							$this->ValueModel->saveValue($product_id, $attributes['products_attribute_id'], '/meme-media/products/'.$product_id.'/');
 						}
 						

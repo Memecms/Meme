@@ -282,11 +282,11 @@ class Admin_Model_DbTable_ProductsTable extends Zend_Db_Table_Abstract {
 	              	
 	              	$categories = $this->CategoryAddModel->getFromObjectId(3, $product_id);
 					$product['category'] = array();
-					$post['product_user'] = $this->UserModel->getUsername($product['product_user']);
+					$product['product_user'] = $this->UserModel->getUsername($product['product_user']);
 								
 					$i_cat = 0;
 					foreach ($categories as $category):
-	        				$post['category'][$i_cat] = $category;
+	        				$product['category'][$i_cat] = $category;
 						$i_cat++;
         			endforeach;
 				
