@@ -41,15 +41,32 @@ class TryController extends Zend_Controller_Action
 				$this->ProductsModel = new Admin_Model_DbTable_ProductsTable();
 				
 				$this->sitemapPing = new Admin_Model_sitemapPing();
+			$this->Analitycs = new Admin_Model_Analitycs();
+			$this->SettingsModel = new Admin_Model_DbTable_SettingsTable();
 
-	
 		}
 
 
 	public function indexAction()
 		{
 		
-		
+		$gapi = new Admin_Model_gapi($this->SettingsModel->get('analitycs_username'), $this->SettingsModel->get('analitycs_password'));
+
+ 		$gapi->requestReportData($this->SettingsModel->get('analitycs_id'),array('month'),array('bounces'), '-month', '', date('Y-m-d', strtotime('-1 month')), date('Y-m-d'), 1, 100);
+		// requestReportData($report_id, $dimensions, $metrics, $sort_metric=null, $filter=null, $start_date=null, $end_date=null, $start_index=1, $max_results=30)
+
+$cvs= "Date,visits,visitors \n";
+foreach($gapi->getResults() as $result)
+{
+  $cvs = $cvs.$result.',';
+  $cvs = $cvs.$result->getMonth() . ',';
+  $cvs = $cvs.$result->getBounces() . "<br />";
+}
+
+echo $cvs;
+
+
+
  		}
 
 
