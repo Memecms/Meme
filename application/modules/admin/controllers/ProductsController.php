@@ -187,7 +187,7 @@ class Admin_ProductsController extends Zend_Controller_Action
 			
 				$field = $request->getPost();
 			
-				$productModel->updateProduct($field);
+				$this->ProductsModel->edit($field);
 				$requestPost = $request->getPost();
 				
 				
