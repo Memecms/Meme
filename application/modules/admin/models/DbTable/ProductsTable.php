@@ -306,122 +306,18 @@ class Admin_Model_DbTable_ProductsTable extends Zend_Db_Table_Abstract {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	public function getWHERE($array)
-	{
-	
-
-	
-		$where = array();
-
-		foreach ($array as $while):
-
-			$where[] = $while['product_id'];
-
-		endforeach;
-
-		$result = $this->find($where);
-		$result = $result->toArray();
-		asort($result, SORT_NUMERIC);
-		return $result;
-
-	}
-	
-
-	public function updateProduct($product)
-	{
-	
-
-		$data = array(
-		
-				'product_name'=> $product['product_name'],
-				'product_content'=> stripslashes($product['product_content']),
-				'product_description'=> stripslashes($product['product_description']),
-				'product_keywords'=> $product['product_keywords'],
-				'product_date'=> mktime(),
-				'product_url' => $product['product_url'],
-
-				
-				);
-		$where = 'product_id = '.$product['product_id'];
-		
-		
-		
-		//cache
-		if(extension_loaded('apc') == 1)
-					{	// clean all records
-						$this->cache->clean(Zend_Cache::CLEANING_MODE_ALL);
- 
-					}
-				else
-					{
-						$this->cache->clean(Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, array($this->_name));
-						$this->cache->clean(Zend_Cache::CLEANING_MODE_OLD);					
-					}
-		//end cache
-
-		
-		
-		
-		$this->update($data , $where );
-	}
 
 
-
-	public function deleteProduct($id)
+	/**
+	 * Delete product.
+	 * 
+	 * @access public
+	 * @param int $product_id	Product id for delete
+	 * @return void
+	 */
+	 
+	 
+	public function deleteFromProductId($product_id)
 	{
 	
 		$where = $this->getAdapter()->quoteInto('product_id = ?', $id);
