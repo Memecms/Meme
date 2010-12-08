@@ -115,10 +115,10 @@ class Admin_ProductsController extends Zend_Controller_Action
 				foreach ($this->AttributeModel->getAll() as $attributes):
         				
         			if($attributes['products_attribute_type'] == 'text_field'){
-        				$this->ValueModel->saveValue($product_id, $attributes['products_attribute_id'], $field['field'.$attributes['products_attribute_id']]);
+        				$this->ValueModel->add($product_id, $attributes['products_attribute_id'], $field['field'.$attributes['products_attribute_id']]);
 					}
 					elseif($attributes['products_attribute_type'] == 'text_area'){
-        				$this->ValueModel->saveValue($product_id, $attributes['products_attribute_id'], $field['field'.$attributes['products_attribute_id']]);
+        				$this->ValueModel->add($product_id, $attributes['products_attribute_id'], $field['field'.$attributes['products_attribute_id']]);
 					}
 					elseif($attributes['products_attribute_type'] == 'media_image'){
 					
@@ -280,7 +280,7 @@ class Admin_ProductsController extends Zend_Controller_Action
 			
 				$this->view->product = $this->ProductsModel->getFromProductId($product_id);
 				$this->view->field = $this->AttributeModel->getAll();
-				$this->view->value = $this->ValueModel->getValues($product_id);
+				$this->view->value = $this->ValueModel->getAllFromProductId($product_id);
 				
 				$this->view->category = $this->CategoryModel->getAll(3);
 				$this->view->categoryadd = $this->CategoryAddModel->getFromObjectId(3, $product_id);
