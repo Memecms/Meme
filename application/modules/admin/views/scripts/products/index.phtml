@@ -42,8 +42,18 @@
 					<tr>
         				<td><?= $this->escape($page['product_id']); ?></td>
         				<td><a href="/admin/products/edit/id/<?= $this->escape($page['product_id']); ?>"><?= $this->escape($page['product_name']); ?></a></td>
-        				<td></td>
-        				<td></td>
+        				<td>
+        				<?php foreach($page['category'] as $category): ?>  
+	
+								<a href="/articles/<?= $category['category_name_url'] ?>"><?= $category['category_name'] ?></a><? if(end($page['category']) != $category) 
+		{echo ',';}						
+								?>
+	
+							<?php endforeach;?>
+
+        				
+        				</td>
+        				<td><?= $this->escape($page['product_user']['user_username']); ?></td>
         				<td><?= new Zend_Date($page['product_date'], Zend_Date::TIMESTAMP); ?></td>
 
 
