@@ -230,18 +230,19 @@ class Admin_ProductsController extends Zend_Controller_Action
 
 
 
-				$this->CategoryAddModel->deleteAllProduct($product_id);
-				
-				
-				foreach ($category->get() as $category):
-        			if($requestPost['category'.$category['category_id']] == '1'){
-        				$this->GalleryAddModel->addCategory($product_id, $category['category_id']);
-					}
-        			
-        		endforeach; 
-					
-        		
 
+				$this->CategoryAddModel->deleteFromObjectId($product_id);
+
+				
+				foreach ($this->CategoryModel->getAll(3) as $category):
+        			if($requestPost['category'.$category['category_id']] == '1'){
+        				$this->CategoryAddModel->addObject(3, $product_id, $category['category_id']);
+					}
+        		endforeach; 
+
+
+					
+        	
 				
 				//add gallery
 				if ($requestPost['gallery'] == 'none')
