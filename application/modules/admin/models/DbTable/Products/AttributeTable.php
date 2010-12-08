@@ -34,15 +34,12 @@ class Admin_Model_DbTable_Products_AttributeTable extends Zend_Db_Table_Abstract
 
 
 	
-    /**
-     * Result all category of object
-     *
-	 * @param  int  $object_type  Type of category post, product and more
-	 * @return Array          
-     *
-     *
-     */
-	
+	/**
+	 * return all attribute for product.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function getAll()
 	{
 		$id = 'Products_attribute_getAll';
@@ -65,58 +62,21 @@ class Admin_Model_DbTable_Products_AttributeTable extends Zend_Db_Table_Abstract
 	
 	
 	
-	public function savePage($post)
+	public function add($post)
 	{
-		$data = array( 
-		
-				'page_controller'=> $post['page_controller'],
-				'page_action'=> $post['page_action'],
-				'page_title'=> $post['page_title'],
-				'page_date'=> mktime(),
-				'page_description'=> $post['page_description'],
-				'page_keywords'=> $post['page_keywords'],
-				'page_content'=> $post['page_content'],
-				
-					);
-
-		$this->insert($data);
-		
-		return $this->getAdapter()->lastInsertId();
 
 	}
 
 
-	public function getPage($id)
-	{
-		$id = (int)$id;
-		$row = $this->fetchRow('page_id = ' . $id);
-		if (!$row) {
-			throw new Exception("Count not find row $id");
-		}
-		return $row;
-	}
 
 	
-	public function updatePage($post)
+	public function edit($attribute)
 	{
-		$data = array(
-		
-				'page_controller'=> $post['page_controller'],
-				'page_action'=> $post['page_action'],
-				'page_title'=> $post['page_title'],
-				'page_date'=> mktime(),
-				'page_description'=> $post['page_description'],
-				'page_keywords'=> $post['page_keywords'],
-				'page_content'=> $post['page_content'],
-
-				);
-		$where = 'page_id = '.$post['page_id'];
-		$this->update($data , $where );
 	}
 
 
 
-	public function deletePage($id)
+	public function deleteAttrtibute($id)
 	{
 	
 		$where = $this->getAdapter()->quoteInto('page_id = ?', $id);

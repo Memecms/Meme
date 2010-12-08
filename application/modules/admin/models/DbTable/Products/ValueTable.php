@@ -24,20 +24,59 @@
 class Admin_Model_DbTable_Products_ValueTable extends Zend_Db_Table_Abstract {
 
 	protected $_name = 'meme_products_value';
-
-
+	protected $cache;
 	
-	public function get()
+	
+	function init()
 	{
-		$orderby = array('products_attribute_id DESC');
-		$result = $this->fetchAll('1', $orderby );
-		return $result->toArray();
+		$this->cache = Zend_Registry::get('Meme_Cache');
 	}
 
+
+
+
+	/**
+	 * Result all value of the determinate id
+	 * 
+	 * @access public
+	 * @param mixed $product_id
+	 * @return void
+	 */
+	 
+	public function getAllFromProductId($product_id)
+	{
+		$product_id = (int)$product_id;
+
+		$id = 'Products_Value_getAllFromProductId_'.$product_id;
+		
+		if(!($data = $this->cache->load($id)))
+			{
+				$result = $this->fetchAll('product_id = ' . $product_id)->toArray();
+		
+				$this->cache->save($result, $id, array($this->_name));
+
+				return $result;
+			}
+			else
+			{		
+				return $this->cache->load($id);
+			}
+	}
+
+
 	
 	
 	
-	public function saveValue($product_id, $product_attribute_id, $product_value)
+	/**
+	 * add value
+	 * 
+	 * @access public
+	 * @param mixed $product_id
+	 * @param mixed $product_attribute_id
+	 * @param mixed $product_value
+	 * @return void
+	 */
+	public function add($product_id, $product_attribute_id, $product_value)
 	{
 		$data = array( 
 		
@@ -47,23 +86,34 @@ class Admin_Model_DbTable_Products_ValueTable extends Zend_Db_Table_Abstract {
 								
 					);
 
-		$this->insert($data);
-		
+		//cache
+		if(extension_loaded('apc') == 1)
+					{	// clean all records
+						$this->cache->clean(Zend_Cache::CLEANING_MODE_ALL);
+ 
+					}
+				else
+					{
+						$this->cache->clean(Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, array($this->_name));
+						$this->cache->clean(Zend_Cache::CLEANING_MODE_OLD);					
+					}
+		//end cache
+
+		$this->insert($data);		
 	}
 	
 	
-	
-	public function getValues($product_id)
-	{
-		$product_id = (int)$product_id;
-		$result = $this->fetchAll('product_id = ' . $product_id);
-		return $result->toArray();
-	}
 
-
-
-
-	public function updateValues($value, $product_id, $product_attribute_id)
+	/**
+	 * edit value existent from product id
+	 * 
+	 * @access public
+	 * @param mixed $value
+	 * @param mixed $product_id
+	 * @param mixed $product_attribute_id
+	 * @return void
+	 */
+	public function edit($value, $product_id, $product_attribute_id)
 	{
 		$data = array(
 		
@@ -78,7 +128,14 @@ class Admin_Model_DbTable_Products_ValueTable extends Zend_Db_Table_Abstract {
 
 
 
-	public function deleteAllProduct($product_id)
+	/**
+	 * Delete value attribute from product id
+	 * 
+	 * @access public
+	 * @param mixed $product_id
+	 * @return void
+	 */
+	public function deleteFromProductId($product_id)
 	{
 	
 		$where = $this->getAdapter()->quoteInto('product_id = ?', $product_id);
