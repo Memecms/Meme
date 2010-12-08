@@ -196,18 +196,18 @@ class Admin_ProductsController extends Zend_Controller_Action
 				}
 				
 				if(!empty($_FILES['product_thumb']['name'])){
-					$imgAdapther->manipulate($_FILES['product_thumb'], 'products/'.$requestPost['product_id'].'/', 'thumb');
+					$this->imgAdapther->manipulate($_FILES['product_thumb'], 'products/'.$requestPost['product_id'].'/', 'thumb');
 				}
 
 
-				foreach ($attribute->get() as $attributes ):
+				foreach ($this->AttributeModel->getAll() as $attributes ):
         			
 
         			if($attributes['products_attribute_type'] == 'text_field'){
-        				$valueModel->updateValues($requestPost['field'. $attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
+        				$this->ValueModel->updateValues($requestPost['field'. $attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
 					}
 					elseif($attributes['products_attribute_type'] == 'text_area'){
-        				$valueModel->updateValues($requestPost['field'. $attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
+        				$this->ValueModel->updateValues($requestPost['field'. $attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
 					}
 					elseif($attributes['products_attribute_type'] == 'media_image'){
 
@@ -217,8 +217,8 @@ class Admin_ProductsController extends Zend_Controller_Action
 						}
 
 						if(!empty($_FILES['field'.$attributes['products_attribute_id']]['name'])){
-							$imgAdapther->productMore($_FILES['field'.$attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
-							$valueModel->updateValues('/meme-media/products/'.$product_id.'/', $requestPost['product_id'], $attributes['products_attribute_id']);
+							$this->imgAdapther->productMore($_FILES['field'.$attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
+							$this->ValueModel->updateValues('/meme-media/products/'.$product_id.'/', $requestPost['product_id'], $attributes['products_attribute_id']);
 						}
 
 					}
@@ -230,12 +230,12 @@ class Admin_ProductsController extends Zend_Controller_Action
 
 
 
-				$categoryadd->deleteAllProduct($productid);
+				$this->CategoryAddModel->deleteAllProduct($product_id);
 				
 				
 				foreach ($category->get() as $category):
         			if($requestPost['category'.$category['category_id']] == '1'){
-        				$categoryadd->addCategory($productid, $category['category_id']);
+        				$this->GalleryAddModel->addCategory($product_id, $category['category_id']);
 					}
         			
         		endforeach; 
@@ -246,25 +246,25 @@ class Admin_ProductsController extends Zend_Controller_Action
 				//add gallery
 				if ($requestPost['gallery'] == 'none')
 				{
-					if ($galleryAdd->getFromIdObject('3', $productid) != '')
+					if ($this->GalleryAddModel->getFromIdObject('3', $product_id) != '')
 					{
-						$galleryAdd->deleteObject('3', $productid);
+						$this->GalleryAddModel->deleteObject('3', $product_id);
 					}
 				
 				}
 				else
 				{	
 				
-					if ($galleryAdd->getFromIdObject('3', $product_id) == '')
+					if ($this->GalleryAddModel->getFromIdObject('3', $product_id) == '')
 					{
 					
-						$galleryAdd->add('3', $product_id, $field['gallery']);
+						$this->GalleryAddModel->add('3', $product_id, $field['gallery']);
 					
 					}
 					else
 					{
-						$galleryAdd->deleteObject('3', $product_id);
-						$galleryAdd->add('3', $product_id, $field['gallery']);
+						$this->GalleryAddModel->deleteObject('3', $product_id);
+						$this->GalleryAddModel->add('3', $product_id, $field['gallery']);
 					}
 							
 				}
@@ -305,10 +305,6 @@ class Admin_ProductsController extends Zend_Controller_Action
 		$request = $this->getRequest();
 		$product_id = (int)$request->getParam('id');
 		
-		$productModel = new Admin_Model_DbTable_ProductsTable();
-		$categoryadd = new Admin_Model_DbTable_Products_CategoryAddTable();
-		$productValue = new Admin_Model_DbTable_Products_ValueTable();
-		
 		$deleteDir = new Admin_Model_deleteDir();
 		
 		$confirm = $request->getParam('confirm');
@@ -316,7 +312,7 @@ class Admin_ProductsController extends Zend_Controller_Action
 
 		if ($confirm == 'yes') {
 		
-				$productModel->deleteProduct($product_id);
+				$this->ProductsModel->deleteProduct($product_id);
 				
 				$categoryadd->deleteAllProduct($product_id);
 				
