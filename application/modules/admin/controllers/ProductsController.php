@@ -204,10 +204,10 @@ class Admin_ProductsController extends Zend_Controller_Action
         			
 
         			if($attributes['products_attribute_type'] == 'text_field'){
-        				$this->ValueModel->updateValues($requestPost['field'. $attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
+        				$this->ValueModel->edit($requestPost['field'. $attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
 					}
 					elseif($attributes['products_attribute_type'] == 'text_area'){
-        				$this->ValueModel->updateValues($requestPost['field'. $attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
+        				$this->ValueModel->edit($requestPost['field'. $attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
 					}
 					elseif($attributes['products_attribute_type'] == 'media_image'){
 
@@ -218,7 +218,7 @@ class Admin_ProductsController extends Zend_Controller_Action
 
 						if(!empty($_FILES['field'.$attributes['products_attribute_id']]['name'])){
 							$this->imgAdapther->productMore($_FILES['field'.$attributes['products_attribute_id']], $requestPost['product_id'], $attributes['products_attribute_id']);
-							$this->ValueModel->updateValues('/meme-media/products/'.$product_id.'/', $requestPost['product_id'], $attributes['products_attribute_id']);
+							$this->ValueModel->edit('/meme-media/products/'.$product_id.'/', $requestPost['product_id'], $attributes['products_attribute_id']);
 						}
 
 					}
