@@ -69,6 +69,26 @@ echo $cvs;
 
  		}
 
+	public function timeAction()
+		{
+		// Insert this block of code at the very top of your page: 
+
+$time = microtime(); 
+$time = explode(" ", $time); 
+$time = $time[1] + $time[0]; 
+$start = $time; 
+
+// Place this part at the very end of your page 
+
+$time = microtime(); 
+$time = explode(" ", $time); 
+$time = $time[1] + $time[0]; 
+$finish = $time; 
+$totaltime = ($finish - $start); 
+printf ("This page took %f seconds to load.", $totaltime); 
+
+
+		}
 
 
 
