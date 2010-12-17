@@ -62,10 +62,18 @@
 	<div id="footerContainer">
  		<div id="footer" class="clearfix">
  <br />
-<p>&copy; <a href="http://memecms.com" target="_blank">Meme Cms</a> 0.1.3dev | ZF: <?= Zend_Version::VERSION ?> </p>
+<p>&copy; <a href="http://memecms.com" target="_blank">Meme Cms</a> 0.1.3dev | ZF: <?= Zend_Version::VERSION ?> 
 
+<em id="pageload"><? 
 
+$places = 5;      // However many decimal places you require
+$mic_time = explode(" ",microtime()); 
+$mic_time = $mic_time[1] + $mic_time[0]; 
+$finishtime = $mic_time; 
+echo "Page loaded in ". round(($finishtime - TIME_START),$places) ." secs";
 
+ ?> </em>
+</p>
     	</div>
 	</div>
 

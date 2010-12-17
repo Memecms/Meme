@@ -88,6 +88,20 @@ $totaltime = ($finish - $start);
 printf ("This page took %f seconds to load.", $totaltime); 
 
 
+
+$mic_time = explode(" ",microtime()); 
+$mic_time = $mic_time[1] + $mic_time[0]; 
+$starttime = $mic_time;
+
+sleep(1);
+
+$places = 5;      // However many decimal places you require
+$mic_time = explode(" ",microtime()); 
+$mic_time = $mic_time[1] + $mic_time[0]; 
+$finishtime = $mic_time; 
+echo "Page loaded in ". round(($finishtime - $starttime),$places) ." secs";
+
+
 		}
 
 

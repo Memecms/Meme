@@ -39,6 +39,14 @@ defined('APPLICATION_PATH')
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
+// Page generation time
+$time = explode(" ",microtime());
+$time = $time[1] + $time[0]; 
+$start = $time;
+define('TIME_START', $start);
+
+
+
 /** Zend_Application */
 require_once 'Zend/Application.php';  
 
