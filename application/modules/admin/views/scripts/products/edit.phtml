@@ -25,9 +25,16 @@
 
   <input type="file" name="product_thumb" id="product_thumb" style="width: 590px"/>
   <?php 
-  if(is_file('meme-media/products/'.$this->product['product_id'].'/thumb.jpg')){
+  if(is_file('meme-media/products/'.$this->product['product_id'].'/thumb.jpg') OR is_file('meme-media/products/'.$this->product['product_id'].'/thumb.png')){
   
-  echo '<img src="/meme-media/products/'.$this->product['product_id'].'/thumb.jpg" />';
+  
+  if(is_file('meme-media/products/'.$this->product['product_id'].'/thumb.jpg'))
+  {$exstension = 'jpg';}
+  elseif(is_file('meme-media/products/'.$this->product['product_id'].'/thumb.png'))
+  {$exstension = 'png';}
+
+  
+  echo '<img src="/meme-media/products/'.$this->product['product_id'].'/thumb.'.$exstension.'" />';
   
   echo '<br /> <label>
   <input name="delete_thumb" type="checkbox" id="delete_thumb" value="1" />

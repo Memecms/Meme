@@ -48,7 +48,30 @@ class Admin_Model_imgAdapter
 
 
 
+	public function resize($file, $newfile, $name, $width = 200, $height = 200)
+	{
+					require_once '../library/phpthumb/ThumbLib.inc.php';
+					$tempFile = $file['tmp_name'];
+        			$targetPath = $_SERVER['DOCUMENT_ROOT'] . '/../application/meme-tmp/';
+					$targetPath =  str_replace('//','/',$targetPath);
+					$targetFile =  $targetPath . $file['name'];
+        			move_uploaded_file($tempFile,$targetFile);
+					$options = array('resizeUp' => true, 'jpegQuality' => 100);
+					
+					$path_parts = pathinfo($targetFile);
+					
+					
+					$thumb = PhpThumbFactory::create($targetFile, $options);
+					$thumb->resize(300, 300);
+					$thumb->save($_SERVER['DOCUMENT_ROOT'] . '/meme-media/' . $newfile . $name . '.'.$path_parts['extension'], $path_parts['extension']);
 
+					unlink($targetFile);
+	
+	}
+
+
+
+// deprecated
 	public function manipulate($file, $patch, $name) {
 	
 					require_once '../library/phpthumb/ThumbLib.inc.php';

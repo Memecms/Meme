@@ -109,7 +109,8 @@ class Admin_ProductsController extends Zend_Controller_Action
 
 
 				if(!empty($_FILES['product_thumb']['name'])){
-					$this->imgAdapther($_FILES['product_thumb'], 'products/'.$product_id.'/', 'thumb');
+
+					$this->imgAdapther->resize($_FILES['product_thumb'], 'products/'.$product_id.'/', 'thumb', 300, 300);
 				}
 
 				foreach ($this->AttributeModel->getAll() as $attributes):
