@@ -3,7 +3,7 @@
   +----------------------------------------------------------------------+
   | APC                                                                  |
   +----------------------------------------------------------------------+
-  | Copyright (c) 2008 The PHP Group                                     |
+  | Copyright (c) 2006 The PHP Group                                     |
   +----------------------------------------------------------------------+
   | This source file is subject to version 3.01 of the PHP license,      |
   | that is bundled with this package in the file LICENSE, and is        |
@@ -22,7 +22,7 @@
 
  */
 
-$VERSION='$Id: apc.php,v 3.68.2.2 2008/05/11 18:57:00 rasmus Exp $';
+$VERSION='$Id: apc.php,v 3.65 2006/10/27 18:32:52 shire Exp $';
 
 ////////// READ OPTIONAL CONFIGURATION FILE ////////////
 if (file_exists("apc.conf.php")) include("apc.conf.php");
@@ -59,7 +59,7 @@ function defaults($d,$v) {
 
 // rewrite $PHP_SELF to block XSS attacks
 //
-$PHP_SELF= isset($_SERVER['PHP_SELF']) ? htmlentities(strip_tags($_SERVER['PHP_SELF'],''), ENT_QUOTES) : '';
+$PHP_SELF= isset($_SERVER['PHP_SELF']) ? htmlentities(strip_tags($_SERVER['PHP_SELF'],'')) : '';
 $time = time();
 $host = getenv('HOSTNAME');
 if($host) { $host = '('.$host.')'; }
@@ -75,7 +75,6 @@ define('OB_VERSION_CHECK',9);
 $vardom=array(
 	'OB'	=> '/^\d+$/',			// operational mode switch
 	'CC'	=> '/^[01]$/',			// clear cache requested
-	'DU'	=> '/^.*$/',			// Delete User Key
 	'SH'	=> '/^[a-z0-9]+$/',		// shared object description
 
 	'IMG'	=> '/^[123]$/',			// image to generate
@@ -86,7 +85,7 @@ $vardom=array(
 	'SORT1'	=> '/^[AHSMCDTZ]$/',	// first sort key
 	'SORT2'	=> '/^[DA]$/',			// second sort key
 	'AGGR'	=> '/^\d+$/',			// aggregation by dir level
-	'SEARCH'	=> '~^[a-zA-Z0-1/_.-]*$~'			// aggregation by dir level
+	'SEARCH'	=> '/^.*$/'			// aggregation by dir level
 );
 
 // default cache mode
@@ -115,7 +114,7 @@ if (empty($_REQUEST)) {
 foreach($vardom as $var => $dom) {
 	if (!isset($_REQUEST[$var])) {
 		$MYREQUEST[$var]=NULL;
-	} else if (!is_array($_REQUEST[$var]) && preg_match($dom.'D',$_REQUEST[$var])) {
+	} else if (!is_array($_REQUEST[$var]) && preg_match($dom,$_REQUEST[$var])) {
 		$MYREQUEST[$var]=$_REQUEST[$var];
 	} else {
 		$MYREQUEST[$var]=$_REQUEST[$var]=NULL;
@@ -178,10 +177,6 @@ if ($AUTHENTICATED && $MYREQUEST['OB'] == OB_USER_CACHE) {
 // clear cache
 if ($AUTHENTICATED && isset($MYREQUEST['CC']) && $MYREQUEST['CC']) {
 	apc_clear_cache($cache_mode);
-}
-
-if ($AUTHENTICATED && !empty($MYREQUEST['DU'])) {
-	apc_delete($MYREQUEST['DU']);
 }
 
 if(!function_exists('apc_cache_info') || !($cache=@apc_cache_info($cache_mode))) {
@@ -344,21 +339,17 @@ if (isset($MYREQUEST['IMG']))
 				if($block['offset']!=$ptr) {       // Used block
 					$angle_to = $angle_from+($block['offset']-$ptr)/$s;
 					if(($angle_to+$fuzz)>1) $angle_to = 1;
-					if( ($angle_to*360) - ($angle_from*360) >= 1) {
-						fill_arc($image,$x,$y,$size,$angle_from*360,$angle_to*360,$col_black,$col_red);
-						if (($angle_to-$angle_from)>0.05) {
-							array_push($string_placement, array($angle_from,$angle_to));
-						}
+					fill_arc($image,$x,$y,$size,$angle_from*360,$angle_to*360,$col_black,$col_red);
+					if (($angle_to-$angle_from)>0.05) {
+						array_push($string_placement, array($angle_from,$angle_to));
 					}
 					$angle_from = $angle_to;
 				}
 				$angle_to = $angle_from+($block['size'])/$s;
 				if(($angle_to+$fuzz)>1) $angle_to = 1;
-				if( ($angle_to*360) - ($angle_from*360) >= 1) {
-					fill_arc($image,$x,$y,$size,$angle_from*360,$angle_to*360,$col_black,$col_green);
-					if (($angle_to-$angle_from)>0.05) {
-						array_push($string_placement, array($angle_from,$angle_to));
-					}
+				fill_arc($image,$x,$y,$size,$angle_from*360,$angle_to*360,$col_black,$col_green);
+				if (($angle_to-$angle_from)>0.05) {
+					array_push($string_placement, array($angle_from,$angle_to));
 				}
 				$angle_from = $angle_to;
 				$ptr = $block['offset']+$block['size'];
@@ -929,7 +920,7 @@ EOB;
 // -----------------------------------------------
 case OB_USER_CACHE:
 	if (!$AUTHENTICATED) {
-    echo '<div class="error">You need to login to see the user values here!<br/>&nbsp;<br/>';
+		echo '<div class="authneeded">You need to login to see the user values here!<br/>&nbsp;<br/>';
 		put_login_link("Login now!");
 		echo '</div>';
 		break;
@@ -937,6 +928,7 @@ case OB_USER_CACHE:
 	$fieldname='info';
 	$fieldheading='User Entry Label';
 	$fieldkey='info';
+
 
 // -----------------------------------------------
 // System Cache Entries		
@@ -1034,19 +1026,8 @@ EOB;
 		'</select>',
     '&nbsp; Search: <input name=SEARCH value="',$MYREQUEST['SEARCH'],'" type=text size=25/>',
 		'&nbsp;<input type=submit value="GO!">',
-		'</form></div>';
+		'</form></div>',
 
-  if (isset($MYREQUEST['SEARCH'])) {
-   // Don't use preg_quote because we want the user to be able to specify a
-   // regular expression subpattern.
-   $MYREQUEST['SEARCH'] = '/'.str_replace('/', '\\/', $MYREQUEST['SEARCH']).'/i';
-   if (preg_match($MYREQUEST['SEARCH'], 'test') === false) {
-     echo '<div class="error">Error: enter a valid regular expression as a search query.</div>';
-     break;
-   }
-  }
-
-  echo
 		'<div class="info"><table cellspacing=0><tbody>',
 		'<tr>',
 		'<th>',sortheader('S',$fieldheading,  "&OB=".$MYREQUEST['OB']),'</th>',
@@ -1096,7 +1077,7 @@ EOB;
 		// output list
 		$i=0;
 		foreach($list as $k => $entry) {
-      if(!$MYREQUEST['SEARCH'] || preg_match($MYREQUEST['SEARCH'], $entry[$fieldname]) != 0) {  
+      if(!$MYREQUEST['SEARCH'] || preg_match('/'.$MYREQUEST['SEARCH'].'/i', $entry[$fieldname]) != 0) {  
         echo
           '<tr class=tr-',$i%2,'>',
           "<td class=td-0><a href=\"$MY_SELF&OB=",$MYREQUEST['OB'],"&SH=",md5($entry[$fieldkey]),"\">",$entry[$fieldname],'</a></td>',
@@ -1112,18 +1093,9 @@ EOB;
           else
             echo '<td class="td-n center">None</td>';
         }
-        if ($entry['deletion_time']) {
-
-          echo '<td class="td-last center">', date(DATE_FORMAT,$entry['deletion_time']), '</td>';
-        } else if ($MYREQUEST['OB'] == OB_USER_CACHE) {
-
-          echo '<td class="td-last center">';
-          echo '[<a href="', $MY_SELF, '&OB=', $MYREQUEST['OB'], '&DU=', urlencode($entry[$fieldkey]), '">Delete Now</a>]';
-          echo '</td>';
-        } else {
-          echo '<td class="td-last center"> &nbsp; </td>';
-        }
-        echo '</tr>';
+        echo
+          '<td class="td-last center">',$entry['deletion_time'] ? date(DATE_FORMAT,$entry['deletion_time']) : '-','</td>',
+          '</tr>';
         $i++;
         if ($i == $MYREQUEST['COUNT'])
           break;
