@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: 23 feb, 2011 at 07:37 PM
+-- Generato il: 23 feb, 2011 at 07:39 PM
 -- Versione MySQL: 5.1.44
 -- Versione PHP: 5.3.2
 
@@ -91,7 +91,7 @@ CREATE TABLE `meme_gallery` (
   `gallery_title` varchar(255) NOT NULL,
   `gallery_content` text NOT NULL,
   `gallery_user` bigint(20) unsigned NOT NULL,
-  `gallery_date` bigint(20) unsigned NOT NULL,
+  `gallery_date` int(11) unsigned NOT NULL,
   `gallery_description` varchar(255) NOT NULL,
   `gallery_keywords` varchar(255) NOT NULL,
   `gallery_status` int(2) unsigned NOT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE `meme_gallery_album` (
   `album_keywords` varchar(255) NOT NULL,
   `album_status` int(2) unsigned NOT NULL,
   `album_user` bigint(20) unsigned NOT NULL,
-  `album_date` bigint(20) unsigned NOT NULL,
+  `album_date` int(11) unsigned NOT NULL,
   PRIMARY KEY (`album_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -179,7 +179,7 @@ CREATE TABLE `meme_gallery_img` (
   `img_description` varchar(255) NOT NULL,
   `img_keywords` varchar(255) NOT NULL,
   `img_user` bigint(20) unsigned NOT NULL,
-  `img_date` bigint(20) unsigned NOT NULL,
+  `img_date` int(11) unsigned NOT NULL,
   `img_status` int(2) unsigned NOT NULL,
   PRIMARY KEY (`img_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
