@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: 02 dic, 2010 at 08:33 PM
+-- Generato il: 23 feb, 2011 at 07:37 PM
 -- Versione MySQL: 5.1.44
 -- Versione PHP: 5.3.2
 
@@ -26,12 +26,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE `meme_category` (
-  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `category_object_type` int(11) unsigned NOT NULL,
+  `category_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `category_object_type` bigint(20) unsigned NOT NULL,
   `category_name` varchar(255) NOT NULL,
   `category_name_url` varchar(255) NOT NULL,
-  `category_type` int(11) unsigned NOT NULL,
-  `category_user_id` int(11) unsigned NOT NULL,
+  `category_type` bigint(20) unsigned NOT NULL,
+  `category_user_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`category_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -49,10 +49,10 @@ INSERT INTO `meme_category` VALUES(2, 3, 'kljhjhj', 'kljhjhj', 0, 1);
 --
 
 CREATE TABLE `meme_category_add` (
-  `add_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `object_type` int(11) unsigned NOT NULL,
-  `object_id` int(11) unsigned NOT NULL,
-  `category_id` int(11) unsigned NOT NULL,
+  `add_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `object_type` bigint(20) unsigned NOT NULL,
+  `object_id` bigint(20) unsigned NOT NULL,
+  `category_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`add_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -78,7 +78,7 @@ CREATE TABLE `meme_db_version` (
 -- Dump dei dati per la tabella `meme_db_version`
 --
 
-INSERT INTO `meme_db_version` VALUES('0.1.8', '$Rev: 364 $');
+INSERT INTO `meme_db_version` VALUES('0.1.9', '$Rev: 364 $');
 
 -- --------------------------------------------------------
 
@@ -87,11 +87,11 @@ INSERT INTO `meme_db_version` VALUES('0.1.8', '$Rev: 364 $');
 --
 
 CREATE TABLE `meme_gallery` (
-  `gallery_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `gallery_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `gallery_title` varchar(255) NOT NULL,
   `gallery_content` text NOT NULL,
-  `gallery_user` int(11) unsigned NOT NULL,
-  `gallery_date` int(11) unsigned NOT NULL,
+  `gallery_user` bigint(20) unsigned NOT NULL,
+  `gallery_date` bigint(20) unsigned NOT NULL,
   `gallery_description` varchar(255) NOT NULL,
   `gallery_keywords` varchar(255) NOT NULL,
   `gallery_status` int(2) unsigned NOT NULL,
@@ -110,10 +110,10 @@ CREATE TABLE `meme_gallery` (
 --
 
 CREATE TABLE `meme_gallery_add` (
-  `add_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `object_type` int(11) unsigned NOT NULL,
-  `object_id` int(11) unsigned NOT NULL,
-  `gallery_id` int(11) unsigned NOT NULL,
+  `add_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `object_type` bigint(20) unsigned NOT NULL,
+  `object_id` bigint(20) unsigned NOT NULL,
+  `gallery_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`add_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -129,14 +129,14 @@ CREATE TABLE `meme_gallery_add` (
 --
 
 CREATE TABLE `meme_gallery_album` (
-  `album_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `album_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `album_title` varchar(255) NOT NULL,
   `album_content` text NOT NULL,
   `album_description` varchar(255) NOT NULL,
   `album_keywords` varchar(255) NOT NULL,
   `album_status` int(2) unsigned NOT NULL,
-  `album_user` int(11) unsigned NOT NULL,
-  `album_date` int(11) unsigned NOT NULL,
+  `album_user` bigint(20) unsigned NOT NULL,
+  `album_date` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`album_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -152,10 +152,10 @@ CREATE TABLE `meme_gallery_album` (
 --
 
 CREATE TABLE `meme_gallery_album_add` (
-  `add_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `gallery_id` int(11) unsigned NOT NULL,
-  `album_id` int(11) unsigned NOT NULL,
-  `album_order` int(11) unsigned NOT NULL,
+  `add_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `gallery_id` bigint(20) unsigned NOT NULL,
+  `album_id` bigint(20) unsigned NOT NULL,
+  `album_order` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`add_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -171,15 +171,15 @@ CREATE TABLE `meme_gallery_album_add` (
 --
 
 CREATE TABLE `meme_gallery_img` (
-  `img_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `img_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `img_file` varchar(255) NOT NULL,
   `img_title` varchar(255) NOT NULL,
   `img_link` varchar(255) NOT NULL,
   `img_content` text NOT NULL,
   `img_description` varchar(255) NOT NULL,
   `img_keywords` varchar(255) NOT NULL,
-  `img_user` int(11) unsigned NOT NULL,
-  `img_date` int(11) unsigned NOT NULL,
+  `img_user` bigint(20) unsigned NOT NULL,
+  `img_date` bigint(20) unsigned NOT NULL,
   `img_status` int(2) unsigned NOT NULL,
   PRIMARY KEY (`img_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -196,10 +196,10 @@ CREATE TABLE `meme_gallery_img` (
 --
 
 CREATE TABLE `meme_gallery_img_add` (
-  `add_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `album_id` int(11) unsigned NOT NULL,
-  `img_id` int(11) unsigned NOT NULL,
-  `img_order` int(11) unsigned NOT NULL,
+  `add_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `album_id` bigint(20) unsigned NOT NULL,
+  `img_id` bigint(20) unsigned NOT NULL,
+  `img_order` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`add_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -215,7 +215,7 @@ CREATE TABLE `meme_gallery_img_add` (
 --
 
 CREATE TABLE `meme_pages` (
-  `page_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `page_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `page_controller` varchar(255) NOT NULL,
   `page_action` varchar(255) NOT NULL,
   `page_title` varchar(255) NOT NULL,
@@ -240,8 +240,8 @@ INSERT INTO `meme_pages` VALUES(1, 'index', 'index', 'Home Page', 1290705789, 'T
 --
 
 CREATE TABLE `meme_posts` (
-  `post_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `post_user` int(11) unsigned NOT NULL,
+  `post_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `post_user` bigint(20) unsigned NOT NULL,
   `post_date` int(11) unsigned NOT NULL,
   `post_status` int(2) unsigned NOT NULL DEFAULT '0',
   `post_title` varchar(255) NOT NULL,
@@ -251,7 +251,7 @@ CREATE TABLE `meme_posts` (
   `post_home` int(1) unsigned NOT NULL DEFAULT '0',
   `post_url` varchar(255) NOT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dump dei dati per la tabella `meme_posts`
@@ -266,13 +266,13 @@ INSERT INTO `meme_posts` VALUES(1, 1, 1290873180, 0, 'Hello world!', 'Welcome to
 --
 
 CREATE TABLE `meme_products` (
-  `product_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_name` varchar(255) NOT NULL,
   `product_content` text NOT NULL,
   `product_description` varchar(255) NOT NULL,
   `product_keywords` varchar(255) NOT NULL,
   `product_date` int(11) unsigned NOT NULL,
-  `product_user` int(11) unsigned NOT NULL,
+  `product_user` bigint(20) unsigned NOT NULL,
   `product_url` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
@@ -294,7 +294,7 @@ INSERT INTO `meme_products` VALUES(5, 'lkjljkhljkhl', '', '', '', 1291159320, 1,
 --
 
 CREATE TABLE `meme_products_attribute` (
-  `products_attribute_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `products_attribute_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `products_attribute_name` varchar(255) NOT NULL,
   `products_attribute_type` varchar(255) NOT NULL,
   `products_attribute_value1` varchar(255) NOT NULL,
@@ -318,9 +318,9 @@ INSERT INTO `meme_products_attribute` VALUES(4, 'img', 'media_image', '', '');
 --
 
 CREATE TABLE `meme_products_value` (
-  `product_value_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `product_attribute_id` int(11) NOT NULL,
+  `product_value_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) NOT NULL,
+  `product_attribute_id` bigint(20) NOT NULL,
   `product_value` mediumtext NOT NULL,
   PRIMARY KEY (`product_value_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
@@ -352,7 +352,7 @@ INSERT INTO `meme_products_value` VALUES(15, 5, 3, '');
 --
 
 CREATE TABLE `meme_settings` (
-  `setting_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `setting_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `setting_name` varchar(255) NOT NULL,
   `setting_value` varchar(255) NOT NULL,
   PRIMARY KEY (`setting_id`)
@@ -377,7 +377,7 @@ INSERT INTO `meme_settings` VALUES(7, 'analitycs_password', '');
 --
 
 CREATE TABLE `meme_users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_firstname` varchar(255) NOT NULL,
   `user_lastname` varchar(255) NOT NULL,
   `user_username` varchar(200) NOT NULL,
@@ -401,8 +401,8 @@ INSERT INTO `meme_users` VALUES(1, '', '', 'admin', 'e10adc3949ba59abbe56e057f20
 --
 
 CREATE TABLE `meme_users_verification` (
-  `verification_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
+  `verification_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
   `user_key` varchar(255) NOT NULL,
   PRIMARY KEY (`verification_id`),
   UNIQUE KEY `user_key` (`user_key`)
