@@ -5,6 +5,13 @@
   		
 		<?= $this->headTitle() ?>
 		<?= $this->headMeta() ?>
+	
+		<meta name="author" content="">
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
  		<?= $this->headLink()->prependStylesheet('/css/global.css') 
  							 ->prependAlternate('/rss', 'application/rss+xml', 'RSS')
@@ -14,7 +21,7 @@
 							->setUiVersion('1.8.9')
 							->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/blitzer/jquery-ui.css'); ?>  		
 	
-	</head> 
+	</head>
 
 	<body>
 		
